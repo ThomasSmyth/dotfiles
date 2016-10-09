@@ -1,7 +1,3 @@
-# kdb/q
-
 alias q='rlwrap -c -r q'
 
-# allows for taking notes
-
-alias note='. $HOME/scripts/makenotes.sh'
+export PS1='${debian_chroot:+($debian_chroot)}${GREEN}\u${YELLOW}@${BLUE}\h${WHITE} \w ${YELLOW}\$ \[\033[00m\]'
