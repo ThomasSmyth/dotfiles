@@ -1,0 +1,7 @@
+# kdb/q
+
+alias q='rlwrap -c -r q'
+
+# allows for taking notes
+
+alias note='. $HOME/scripts/makenotes.sh'
