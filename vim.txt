@@ -5,7 +5,8 @@ set ruler
 syntax on
 set number numberwidth=1 
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
-# set colorcolumn=97
+" set colorcolumn=97
+" set commentstring=//\ %s  " for q syntax
 
 set foldmethod=marker
 set foldnestmax=10
