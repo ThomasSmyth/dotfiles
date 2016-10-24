@@ -5,6 +5,12 @@ set ruler
 syntax on
 set number numberwidth=1 
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+# set colorcolumn=97
+
+set foldmethod=marker
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 
 function! RelativeNumberToggle()
   if(&number == 0)
@@ -14,7 +20,7 @@ function! RelativeNumberToggle()
   endif
 endfunc
 
-nnoremap <C-n> :call RelativeNumberToggle()<cr>
+nnoremap <C-n> :call RelativeNumberToggle()<CR>
 
 function! NumberToggle()
   if(&relativenumber == 1)
@@ -27,4 +33,4 @@ function! NumberToggle()
   endif
 endfunc
 
-nnoremap <C-m> :call NumberToggle()<cr> 
+nnoremap <C-m> :call NumberToggle()<CR> 
