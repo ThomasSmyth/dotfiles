@@ -13,25 +13,15 @@ set foldnestmax=10
 set nofoldenable
 set foldlevel=2
 
-function! RelativeNumberToggle()
-  if(&number == 0)
-    set number
-  else
-    set relativenumber!
-  endif
-endfunc
-
-nnoremap <C-n> :call RelativeNumberToggle()<CR>
-
 function! NumberToggle()
   if(&relativenumber == 1)
     set norelativenumber
     set nonumber
   elseif(&number == 1)
-    set nonumber
+    set relativenumber
   else
     set number
   endif
 endfunc
 
-nnoremap <C-b> :call NumberToggle()<CR> 
+nnoremap <C-n> :call NumberToggle()<CR> 
