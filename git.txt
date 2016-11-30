@@ -5,6 +5,7 @@
     st=status
 [core]
 	editor = vim
+    pager = less -+S
 [push]
     default = simple
 [core]
