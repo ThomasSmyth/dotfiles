@@ -10,3 +10,6 @@
     default = simple
 [core]
     editor = vim
+[user]
+    email = tsmyth92@gmail.com
+    name = Thomas Smyth

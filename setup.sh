@@ -49,5 +49,8 @@ mkdir -p ~/scripts
 
 cp ~/git/custom-settings/scripts/* ~/scripts
 
+echo "sourcing ~/.bashrc"
+source ~/.bashrc
+
 echo "setup complete"
 cd ~
