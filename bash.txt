@@ -17,4 +17,7 @@ fi
 
 export PATH=~/.bin:$PATH
 
-alias mgrep='~/scripts/multigrep.sh'
+if [ -d ~/.bin/q ]; then
+    export QHOME=~/.bin/q
+    export PATH=~/.bin/q/l32/:$PATH
+fi
