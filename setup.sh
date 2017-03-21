@@ -49,6 +49,9 @@ mkdir -p ~/scripts
 
 cp ~/git/custom-settings/scripts/* ~/scripts
 
+echo "checking for kdb+"
+. ~/git/custom-settings/kdb_install.sh
+
 echo "sourcing ~/.bashrc"
 source ~/.bashrc
 
