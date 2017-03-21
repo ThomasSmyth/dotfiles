@@ -4,7 +4,7 @@ mkdir -p ~/.ssh
 # ensure git keys exist
 if [ 2 -ne $(find ~/.ssh -type f -name ${HOSTNAME}* | wc -l) ]; then
     echo "Creating git keys"
-    ssh-keygen -N '' -t rsa -b 4096 -C "tsmyth92@gmail.com" -f  ~/.ssh/${HOSTNAME}_bkey
+    ssh-keygen -N '' -t rsa -b 4096 -C "tsmyth92@gmail.com" -f  ~/.ssh/${HOSTNAME}_key
     echo "Host github.com" >> ~/.ssh/config
     echo "IdentityFile ~/.ssh/${HOSTNAME}_key" >> ~/.ssh/config
     echo "Add key to github before proceeding"
