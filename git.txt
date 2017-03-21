@@ -4,9 +4,9 @@
     s=status -s
     st=status
 [core]
-	editor = vim
+    editor = vim
     pager = less -+S
 [push]
     default = simple
 [core]
-	editor = vim
+    editor = vim
