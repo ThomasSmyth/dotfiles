@@ -47,7 +47,7 @@ cp -r ~/git/vim-qkdb-syntax/* ~/.vim
 
 mkdir -p ~/scripts
 
-cp ~/git/custom-settings/scripts/* ~/scripts
+cp -rsf ~/git/custom-settings/scripts/* ~/scripts/
 
 echo "checking for kdb+"
 . ~/git/custom-settings/kdb_install.sh
