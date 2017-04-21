@@ -18,8 +18,7 @@ wget -O ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contri
 
 # clone necessary repos
 echo "cloning repos"
-mkdir -p ~/git
-cd ~/git
+mkdir -p ~/git && cd "$_"
 git clone https://github.com/raylee/tldr.git
 git clone https://github.com/katusk/vim-qkdb-syntax.git
 git clone git@github.com:rocketship92/custom-settings.git
@@ -55,13 +54,14 @@ echo "adding kdb syntax highlighting"
 mkdir -p ~/.vim
 cp -r ~/git/vim-qkdb-syntax/* ~/.vim
 
+# custom scripts
 mkdir -p ~/scripts
-
 cp -rsf ~/git/custom-settings/scripts/* ~/scripts/
 
 echo "checking for kdb+"
 . ~/git/custom-settings/kdb_install.sh
 
+# wrapping up
 echo "sourcing ~/.bashrc"
 source ~/.bashrc
 

@@ -1,21 +1,27 @@
-colorscheme darkblue
-set backspace=2
-set hlsearch
-set ruler
-syntax on
-set number numberwidth=1 
-set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
-" set colorcolumn=97
-" set commentstring=//\ %s  " for q syntax
-" :%!xxd        " hex editor
-" :%!xxd -r     " revert to normal editor
+set nocompatible                                                " sanely rest options when re-sourcing .vimrc
+syntax on                                                       " ensure syntax highllighting is enabled
 
-set foldmethod=marker
+colorscheme darkblue                                            " colorscheme
+set backspace=2                                                 " make backspace work like most other apps
+set hlsearch                                                    " highlist search result
+set ruler
+set showmatch                                                   " highlight matching brackets
+set wildmenu                                                    " more easily locate files
+set cursorline                                                  " easily find cursor
+set number numberwidth=1                                        " enable numbers at smallest possible width
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab     " expand tab to spaces
+" set colorcolumn=85
+autocmd BufEnter *.q colorcolumn=85                             " set colorcolumn in q files only
+" set commentstring=//\ %s  " for q syntax
+" :%!xxd                                                        " hex editor
+" :%!xxd -r                                                     " revert to normal editor
+
+set foldmethod=marker                                           " options for folding markers
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
 
-function! NumberToggle()
+function! NumberToggle()                                        " function to toggle number behaviour
   if(&relativenumber == 1)
     set norelativenumber
     set nonumber
@@ -26,4 +32,9 @@ function! NumberToggle()
   endif
 endfunc
 
-nnoremap <C-n> :call NumberToggle()<CR> 
+nnoremap <C-n> :call NumberToggle()<CR>                         " map NumberToggle to ctrl+n
+
+nnoremap k gk                                                   " move up by visual line
+nnoremap <Up> gk
+nnoremap j gj                                                   " move down by visual line
+nnoremap <Down> gj
