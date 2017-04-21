@@ -3,6 +3,10 @@
     gs=log --color --graph --abrev-commit --decorate --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
     s=status -s
     st=status
+    # Save a repo as a tarball
+    export = archive -o latest.tar.gz -9 --prefix=latest/
+[color]
+    ui = true
 [core]
     editor = vim
     pager = less -+S
@@ -10,6 +14,3 @@
     default = simple
 [core]
     editor = vim
-[user]
-    email = tsmyth92@gmail.com
-    name = Thomas Smyth

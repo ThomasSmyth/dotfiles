@@ -34,11 +34,21 @@ chmod +x ~/.bin/tldr
 
 # add settings
 echo "updating settings files"
-cat ~/git/custom-settings/bash.txt >> ~/.bashrc
-touch ~/.vimrc
-cat ~/git/custom-settings/vim.txt >> ~/.vimrc
-touch ~/.gitconfig
-cat ~/git/custom-settings/git.txt >> ~/.gitconfig
+cat ~/git/custom-settings/bash.txt >> ~/.bashrc                 # custom bashrc
+cat ~/git/custom-settings/alias.txt >> ~/.bash_aliases          # alias for use in bash
+cat ~/git/custom-settings/vim.txt >> ~/.vimrc                   # custom vimrc
+cat ~/git/custom-settings/git.txt >> ~/.gitconfig               # custom gitconfig
+
+# set git data
+echo "input git name"
+read gitname
+echo "setting name to $gitname"
+git config --global user.name "$gitname"
+
+echo "input git email"
+read gitemail
+echo "setting email to $gitemail"
+git config --global user.email "$gitemail"
 
 # vim kdb syntax highlighting
 echo "adding kdb syntax highlighting"
