@@ -15,8 +15,12 @@ set showcmd                                                             " shows 
 set cursorline                                                          " easily find cursor
 set number numberwidth=1                                                " enable numbers
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab             " expand tab to spaces
-" set colorcolumn=81
+" set colorcolumn=81                                                    " set colorcolumn for all files
+" let &colorcolumn="81,".join(range(120,999),",")                       " additional colourcolumns
+highlight colorcolumn ctermbg=4                                         " set colorcolumn colour to blue
 autocmd BufEnter *.q set colorcolumn=81                                 " set colorcolumn in q files
+autocmd BufEnter *.q let &colorcolumn="81,".join(range(121,999),",")    " additional colourcolumns for q files
+" autocmd BufEnter *.py highlight colorcolumn ctermbg=3                 " custom colour for py files
 autocmd BufEnter *.py set colorcolumn=81                                " set colorcolumn in py files
 " set commentstring=//\ %s  " for q syntax
 " :%!xxd                                                                " hex editor
