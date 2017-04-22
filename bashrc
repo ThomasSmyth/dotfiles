@@ -9,8 +9,13 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# set functions
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
+
 # files to sourse
-~/.git-prompt.sh
+source ~/.git-prompt.sh
 
 # variables
 HISTSIZE=1000

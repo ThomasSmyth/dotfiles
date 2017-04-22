@@ -4,22 +4,20 @@ syntax on                                                       " ensure syntax 
 colorscheme darkblue                                            " colorscheme
 set backspace=2                                                 " make backspace work like most other apps
 set hlsearch                                                    " highlist search result
-set ruler
+set ruler                                                       " ruler
 set showmatch                                                   " highlight matching brackets
 set wildmenu                                                    " more easily locate files
 set cursorline                                                  " easily find cursor
 set number numberwidth=1                                        " enable numbers at smallest possible width
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab     " expand tab to spaces
-" set colorcolumn=85
-autocmd BufEnter *.q colorcolumn=85                             " set colorcolumn in q files only
+" set colorcolumn=81
+autocmd BufEnter *.q colorcolumn=81                             " set colorcolumn in q files
+autocmd BufEnter *.py colorcolumn=81                            " set colorcolumn in pv files
 " set commentstring=//\ %s  " for q syntax
 " :%!xxd                                                        " hex editor
 " :%!xxd -r                                                     " revert to normal editor
 
-set foldmethod=marker                                           " options for folding markers
-set foldnestmax=10
-set nofoldenable
-set foldlevel=2
+set foldmethod=marker foldnestmax=10 nofoldenable foldlevel=2   " options for folding markers
 
 function! NumberToggle()                                        " function to toggle number behaviour
   if(&relativenumber == 1)

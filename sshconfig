@@ -1,3 +1,0 @@
-Host github.com
-IdentityFile ~/.ssh/${HOSTNAME}_key
-# ssh-keygen -t rsa -b 4096 -C "tsmyth92@gmail.com"
