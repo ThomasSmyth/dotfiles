@@ -1,4 +1,4 @@
-# custom-settings
+# Custom Settings
 
 Set up is handled by the script `setup.sh`, which should be retrieved as a standalone file:
 
@@ -18,6 +18,10 @@ The script handles
 
 On the initial use of this scripts keys are created, with the public key
 needing added to [github](https://github.com/settings/keys).
+
+```
+. setup.sh
+```
 
 After the public key has been added running the script again will complete the setup.
 
