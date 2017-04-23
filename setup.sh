@@ -32,6 +32,8 @@ cat $HOME/git/custom-settings/bash_aliases >> $HOME/.bash_aliases               
 cat $HOME/git/custom-settings/bash_functions.sh >> $HOME/.bash_functions            # alias for use in bash
 cat $HOME/git/custom-settings/bashrc >> $HOME/.bashrc                               # custom bashrc
 cat $HOME/git/custom-settings/vimrc >> $HOME/.vimrc                                 # custom vimrc
+mkdir -p $HOME/.vim/ftplugin
+cp $HOME/git/custom-settings/ftplugin/* $HOME/.vim/ftplugin                         # custom filetype settings
 cat $HOME/git/custom-settings/gitconfig >> $HOME/.gitconfig                         # custom gitconfig
 
 echo "input git name"                                                               # set git name

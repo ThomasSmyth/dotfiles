@@ -1,15 +1,15 @@
 set nocompatible                                                        " sanely reset options on vimrc re-source
+filetype plugin on                                                      " allow loading from ftplugin
 syntax on                                                               " ensure syntax highllighting is enabled
-filetype on                                                             " for syntax highlighting
 
 colorscheme darkblue                                                    " colorscheme
 set backspace=2                                                         " make backspace work like most other apps
 set hlsearch                                                            " highlist search result
-set ruler                                                               " ruler
+set ruler                                                               " show column number in status bar
 set showmatch                                                           " highlight matching brackets
 set wildmenu                                                            " more easily locate files
 set wildmode=list:longest,full                                          " extra results
-" let g:clipbrdDefaultReg = '+'                                         " for linux clipboard
+let g:clipbrdDefaultReg = '+'                                         " for linux clipboard
 set nohidden                                                            " remove buffer no tab close
 set showcmd                                                             " shows typing as command
 set cursorline                                                          " easily find cursor
@@ -18,11 +18,6 @@ set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab             " expand
 " set colorcolumn=81                                                    " set colorcolumn for all files
 " let &colorcolumn="81,".join(range(120,999),",")                       " additional colourcolumns
 highlight colorcolumn ctermbg=4                                         " set colorcolumn colour to blue
-autocmd BufEnter *.q set colorcolumn=81                                 " set colorcolumn in q files
-autocmd BufEnter *.q let &colorcolumn="81,".join(range(121,999),",")    " additional colourcolumns for q files
-" autocmd BufEnter *.py highlight colorcolumn ctermbg=3                 " custom colour for py files
-autocmd BufEnter *.py set colorcolumn=81                                " set colorcolumn in py files
-" set commentstring=//\ %s  " for q syntax
 " :%!xxd                                                                " hex editor
 " :%!xxd -r                                                             " revert to normal editor
 
@@ -31,7 +26,9 @@ set foldmethod=marker foldnestmax=10 nofoldenable foldlevel=2           " option
 
 "" functions
 
-function! NumberToggle()                                                " function to toggle number behaviour
+" function to toggle number behaviour
+function! NumberToggle()
+  let save_pos = getpos(".")
   if(&relativenumber == 1)
     set norelativenumber
     set nonumber
@@ -40,17 +37,41 @@ function! NumberToggle()                                                " functi
   else
     set number
   endif
+  call setpos('.', save_pos)
 endfunc
+
+" fill with spaces up to comment column
+function! SpaceToComment( str )
+    let tw = &colorcolumn                                               " set tw to the desired comment column
+    if tw==0 | let tw = 81 | endif
+    " strip trailing spaces first
+    .s/[[:space:]]*$//
+    " calculate total number of 'str's to insert
+    let reps = (tw - col("$")) / len(a:str)
+    " insert them, if there's room, removing trailing spaces (though forcing
+    " there to be one)
+    if reps > 0
+        .s/$/\=(' '.repeat(a:str, reps))/
+    endif
+endfunction
 
 
 "" key mapping
 
-nnoremap <C-n> :call NumberToggle()<CR>                                 " map NumberToggle to ctrl+n
+" map NumberToggle
+execute "set <M-n>=\en"
+nnoremap <M-n> :call NumberToggle()<Return>
 
-nnoremap k gk                                                           " move up by visual line
+" move up by visual line
+nnoremap k gk
 nnoremap <Up> gk
-nnoremap j gj                                                           " move down by visual line
+" move down by visual line
+nnoremap j gj
 nnoremap <Down> gj
+
+" map SpaceToComment to ctrl+m
+execute "set <M-m>=\em"
+nnoremap <M-m> :call SpaceToComment(' ')<CR>
 
 
 "" auto commands
