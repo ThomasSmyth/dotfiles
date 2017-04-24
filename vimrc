@@ -52,6 +52,7 @@ function! SpaceToComment( str )
     " there to be one)
     if reps > 0
         .s/$/\=(' '.repeat(a:str, reps))/
+        normal $
     endif
 endfunction
 
@@ -63,10 +64,8 @@ execute "set <M-n>=\en"
 nnoremap <M-n> :call NumberToggle()<Return>
 
 " move up by visual line
-nnoremap k gk
 nnoremap <Up> gk
 " move down by visual line
-nnoremap j gj
 nnoremap <Down> gj
 
 " map SpaceToComment to ctrl+m

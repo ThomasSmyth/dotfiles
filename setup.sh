@@ -28,7 +28,7 @@ curl -o $HOME/.bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tld
 chmod +x $HOME/.bin/tldr
 
 echo "updating settings files"                                                      # add settings
-cat $HOME/git/custom-settings/bash_aliases >> $HOME/.bash_aliases                   # alias for use in bash
+cat $HOME/git/custom-settings/bash_aliases.sh >> $HOME/.bash_aliases.sh             # alias for use in bash
 cat $HOME/git/custom-settings/bash_functions.sh >> $HOME/.bash_functions            # alias for use in bash
 cat $HOME/git/custom-settings/bashrc >> $HOME/.bashrc                               # custom bashrc
 cat $HOME/git/custom-settings/vimrc >> $HOME/.vimrc                                 # custom vimrc
