@@ -20,6 +20,7 @@ set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab             " expand
 highlight colorcolumn ctermbg=4                                         " set colorcolumn colour to blue
 " :%!xxd                                                                " hex editor
 " :%!xxd -r                                                             " revert to normal editor
+" :retab " replaces tabs with spaces
 
 set foldmethod=marker foldnestmax=10 nofoldenable foldlevel=2           " options for folding markers
 
