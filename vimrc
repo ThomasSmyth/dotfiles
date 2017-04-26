@@ -6,10 +6,11 @@ colorscheme darkblue                                                    " colors
 set backspace=2                                                         " make backspace work like most other apps
 set hlsearch                                                            " highlist search result
 set ruler                                                               " show column number in status bar
+set paste                                                               " paste formatting correctly
 set showmatch                                                           " highlight matching brackets
 set wildmenu                                                            " more easily locate files
 set wildmode=list:longest,full                                          " extra results
-let g:clipbrdDefaultReg = '+'                                         " for linux clipboard
+" let g:clipbrdDefaultReg = '+'                                         " for linux clipboard
 set nohidden                                                            " remove buffer no tab close
 set showcmd                                                             " shows typing as command
 set cursorline                                                          " easily find cursor
@@ -17,7 +18,8 @@ set number numberwidth=1                                                " enable
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab             " expand tab to spaces
 " set colorcolumn=81                                                    " set colorcolumn for all files
 " let &colorcolumn="81,".join(range(120,999),",")                       " additional colourcolumns
-highlight colorcolumn ctermbg=4                                         " set colorcolumn colour to blue
+" set colorcolumn colour to blue
+highlight colorcolumn ctermbg=4
 " :%!xxd                                                                " hex editor
 " :%!xxd -r                                                             " revert to normal editor
 " :retab " replaces tabs with spaces
