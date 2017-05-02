@@ -5,7 +5,6 @@ syntax on                                                               " ensure
 colorscheme darkblue                                                    " colorscheme
 set backspace=2                                                         " make backspace work like most other apps
 set hlsearch                                                            " highlist search result
-set ruler                                                               " show column number in status bar
 set showmatch                                                           " highlight matching brackets
 set wildmenu                                                            " more easily locate files
 set wildmode=list:longest,full                                          " extra results
@@ -15,7 +14,7 @@ set showcmd                                                             " shows 
 set cursorline                                                          " easily find cursor
 set number numberwidth=1                                                " enable numbers
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab             " expand tab to spaces
-" set colorcolumn=81                                                    " set colorcolumn for all files
+set colorcolumn=97                                                      " set colorcolumn for all files
 " let &colorcolumn="81,".join(range(120,999),",")                       " additional colourcolumns
 " set colorcolumn colour to blue
 highlight colorcolumn ctermbg=4
@@ -104,3 +103,4 @@ augroup JumpCursorOnEdit                                                " restor
 augroup END
 
 set paste                                                               " paste formatting correctly
+set ruler                                                               " show column number in status bar

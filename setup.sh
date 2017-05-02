@@ -11,53 +11,97 @@ if [ 2 -ne $(find $HOME/.ssh -type f -name ${HOSTNAME}* | wc -l) ]; then        
 fi
 echo "git keys exist"
 
-echo "fetching git-prompt.sh"                                                       # get git prompt script
-wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 
-echo "cloning repos"                                                                # clone necessary repos
-mkdir -p $HOME/git && cd "$_"
-git clone https://github.com/raylee/tldr.git
-git clone https://github.com/katusk/vim-qkdb-syntax.git
-git clone git@github.com:rocketship92/custom-settings.git
-git clone git@github.com:rocketship92/myfuncs.git
-git clone git@github.com:rocketship92/segment_comparison.git
+## settings
 
-echo "adding tldr"                                                                  # install tldr
-mkdir -p $HOME/.bin
-curl -o $HOME/.bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
-chmod +x $HOME/.bin/tldr
+for stg in $@; do
+    if [ "all" = $stg ]; then
+        stg = "repos bashrc bash vim git scripts kdb"
+    fi
 
-echo "updating settings files"                                                      # add settings
-cat $HOME/git/custom-settings/bash_aliases.sh >> $HOME/.bash_aliases.sh             # alias for use in bash
-cat $HOME/git/custom-settings/bash_functions.sh >> $HOME/.bash_functions            # alias for use in bash
-cat $HOME/git/custom-settings/bashrc >> $HOME/.bashrc                               # custom bashrc
-cat $HOME/git/custom-settings/vimrc >> $HOME/.vimrc                                 # custom vimrc
-mkdir -p $HOME/.vim/ftplugin
-cp $HOME/git/custom-settings/ftplugin/* $HOME/.vim/ftplugin                         # custom filetype settings
-cat $HOME/git/custom-settings/gitconfig >> $HOME/.gitconfig                         # custom gitconfig
+    stgs=$stgs" "$stg
+done
 
-echo "input git name"                                                               # set git name
-read gitname
-echo "setting name to $gitname"
-git config --global user.name "$gitname"
+for stg in $stgs; do
 
-echo "input git email"                                                              # set git email
-read gitemail
-echo "setting email to $gitemail"
-git config --global user.email "$gitemail"
+    case $stg in
 
-echo "adding kdb syntax highlighting"                                               # vim kdb syntax highlighting
-mkdir -p $HOME/.vim
-cp -r $HOME/git/vim-qkdb-syntax/* $HOME/.vim
+        repos )
+            echo "cloning repos"                                                                # clone necessary repos
+            mkdir -p $HOME/git && cd "$_"
+            git clone https://github.com/raylee/tldr.git
+            git clone https://github.com/katusk/vim-qkdb-syntax.git
+            git clone git@github.com:rocketship92/custom-settings.git
+            git clone git@github.com:rocketship92/myfuncs.git
+            git clone git@github.com:rocketship92/segment_comparison.git
 
-mkdir -p $HOME/scripts                                                              # custom scripts
-cp -rsf $HOME/git/custom-settings/scripts/* $HOME/scripts/
+            echo "adding tldr"                                                                  # install tldr
+            mkdir -p $HOME/.bin
+            curl -o $HOME/.bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
+            chmod +x $HOME/.bin/tldr
 
-echo "checking for kdb+"
-. $HOME/git/custom-settings/kdb_install.sh
+            echo "fetching git-prompt.sh"                                                       # get git prompt script
+            wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 
-echo "sourcing $HOME/.bashrc"                                                       # wrapping up
+            echo "adding kdb syntax highlighting"                                               # vim kdb syntax highlighting
+            mkdir -p $HOME/.vim
+            cp -r $HOME/git/vim-qkdb-syntax/* $HOME/.vim
+
+            cd -
+        ;;
+
+
+        bashrc )
+            echo "adding to bashrc"                                                             # add settings
+            cat $HOME/git/custom-settings/bashrc >> $HOME/.bashrc                               # custom bashrc
+        ;;
+
+        bash )
+            echo "adding additional bash files"                                                 # add settings
+            cat $HOME/git/custom-settings/bash_functions.sh > $HOME/.bash_functions             # alias for use in bash
+            cat $HOME/git/custom-settings/bash_aliases.sh > $HOME/.bash_aliases.sh              # alias for use in bash
+        ;;
+
+        vim )
+            echo "adding vim settings files"                                                    # add settings
+            cat $HOME/git/custom-settings/vimrc > $HOME/.vimrc                                  # custom vimrc
+            mkdir -p $HOME/.vim/ftplugin
+            cp $HOME/git/custom-settings/ftplugin/* $HOME/.vim/ftplugin                         # custom filetype settings
+        ;;
+
+        git )
+            cat $HOME/git/custom-settings/gitconfig > $HOME/.gitconfig                          # custom gitconfig
+
+            echo "input git name"                                                               # set git name
+            read gitname
+            echo "setting name to $gitname"
+            git config --global user.name "$gitname"
+
+            echo "input git email"                                                              # set git email
+            read gitemail
+            echo "setting email to $gitemail"
+            git config --global user.email "$gitemail"
+        ;;
+
+        scripts )
+            mkdir -p $HOME/scripts                                                              # custom scripts
+            cp -rsf $HOME/git/custom-settings/scripts/* $HOME/scripts/
+        ;;
+
+        kdb )
+            echo "checking for kdb+"
+            . $HOME/git/custom-settings/kdb_install.sh
+        ;;
+
+        * )
+            echo "Invalid option: $stg"
+        ;;
+
+    esac
+
+done
+
+echo "sourcing $HOME/.bashrc"                                                                   # wrapping up
 source $HOME/.bashrc
 
 echo "setup complete"
-cd $HOME
