@@ -6,7 +6,6 @@ colorscheme darkblue                                                    " colors
 set backspace=2                                                         " make backspace work like most other apps
 set hlsearch                                                            " highlist search result
 set ruler                                                               " show column number in status bar
-set paste                                                               " paste formatting correctly
 set showmatch                                                           " highlight matching brackets
 set wildmenu                                                            " more easily locate files
 set wildmode=list:longest,full                                          " extra results
@@ -63,8 +62,7 @@ endfunction
 "" key mapping
 
 " map NumberToggle
-execute "set <M-n>=\en"
-nnoremap <M-n> :call NumberToggle()<Return>
+nnoremap <C-n> :call NumberToggle()<CR>
 
 " move up by visual line
 nnoremap <Up> gk
@@ -104,3 +102,5 @@ augroup JumpCursorOnEdit                                                " restor
             \   unlet b:doopenfold |
             \ endif
 augroup END
+
+set paste                                                               " paste formatting correctly
