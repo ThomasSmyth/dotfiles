@@ -1,16 +1,4 @@
-mkdir -p $HOME/.ssh                                                                 # create ssh dir
-
-if [ 2 -ne $(find $HOME/.ssh -type f -name ${HOSTNAME}* | wc -l) ]; then            # ensure git keys exist
-    echo "Creating git keys, enter git email"
-    read gitemail
-    ssh-keygen -N '' -t rsa -b 4096 -C "$gitemail" -f  $HOME/.ssh/${HOSTNAME}_key
-    echo "Host github.com" >> $HOME/.ssh/config
-    echo "IdentityFile $HOME/.ssh/${HOSTNAME}_key" >> $HOME/.ssh/config
-    echo "Add key to github before proceeding"
-    return 0
-fi
-echo "git keys exist"
-
+mkdir -p $HOME/.ssh                                                                             # create ssh dir
 
 ## settings
 
@@ -25,6 +13,16 @@ done
 for stg in $stgs; do
 
     case $stg in
+
+        gitkeys )
+            echo "Creating git keys, enter git email"
+            read gitemail
+            ssh-keygen -N '' -t rsa -b 4096 -C "$gitemail" -f  $HOME/.ssh/${HOSTNAME}_key
+            echo "Host github.com" >> $HOME/.ssh/config
+            echo "IdentityFile $HOME/.ssh/${HOSTNAME}_key" >> $HOME/.ssh/config
+            echo "Add key to github before proceeding"
+            return 0
+        ;;
 
         repos )
             echo "cloning repos"                                                                # clone necessary repos
