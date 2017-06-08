@@ -28,7 +28,7 @@ for stg in $stgs; do
             echo "cloning repos"                                                                # clone necessary repos
             mkdir -p $HOME/git && cd "$_"
             git clone https://github.com/raylee/tldr.git
-            git clone https://github.com/katusk/vim-qkdb-syntax.git
+            git clone https://github.com/patmok/qvim.git
             git clone git@github.com:rocketship92/custom-settings.git
             git clone git@github.com:rocketship92/myfuncs.git
             git clone git@github.com:rocketship92/segment_comparison.git
@@ -43,7 +43,7 @@ for stg in $stgs; do
 
             echo "adding kdb syntax highlighting"                                               # vim kdb syntax highlighting
             mkdir -p $HOME/.vim
-            cp -r $HOME/git/vim-qkdb-syntax/* $HOME/.vim
+            cp -r $HOME/git/qvim/.vim/* $HOME/.vim
 
             cd -
         ;;
@@ -98,6 +98,8 @@ for stg in $stgs; do
     esac
 
 done
+
+stgs=""
 
 echo "sourcing $HOME/.bashrc"                                                                   # wrapping up
 source $HOME/.bashrc
