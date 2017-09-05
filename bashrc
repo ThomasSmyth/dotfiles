@@ -38,9 +38,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # add user programs to path
-export PATH=~/.bin:$PATH
+export PATH=~/local/bin:$PATH
 
 if [ -d ~/.bin/q ]; then
-    export QHOME=~/.bin/q
-    export PATH=~/.bin/q/l32/:$PATH
+    export QHOME=~/local/bin/q
+    export PATH=~/local/bin/q/l32/:$PATH
 fi

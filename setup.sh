@@ -4,7 +4,7 @@ mkdir -p $HOME/.ssh                                                             
 
 for stg in $@; do
     if [ "all" = $stg ]; then
-        stg = "repos bashrc bash vim git scripts kdb"
+        stg = "repos bashrc bash vim tmux-conf git scripts kdb"
     fi
 
     stgs=$stgs" "$stg
@@ -34,9 +34,9 @@ for stg in $stgs; do
             git clone git@github.com:rocketship92/segment_comparison.git
 
             echo "adding tldr"                                                                  # install tldr
-            mkdir -p $HOME/.bin
-            curl -o $HOME/.bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
-            chmod +x $HOME/.bin/tldr
+            mkdir -p $HOME/local/bin
+            curl -o $HOME/local/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
+            chmod +x $HOME/local/bin/tldr
 
             echo "fetching git-prompt.sh"                                                       # get git prompt script
             wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
@@ -66,6 +66,24 @@ for stg in $stgs; do
             mkdir -p $HOME/.vim/ftplugin
             cp $HOME/git/custom-settings/ftplugin/* $HOME/.vim/ftplugin                         # custom filetype settings
         ;;
+
+        tmux-dl )
+            echo "getting tmux"
+            wget https://github.com/tmux/tmux/releases/download/2.5/tmux-2.5.tar.gz
+ 			tar -xvzf tmux-2.5.tar.gz
+ 			cd $HOME/git/custom-settings/tmux-2.5
+ 			./configure --prefix $HOME/local
+ 			make
+ 			make install
+ 			cd -
+ 			rm $HOME/git/custom-settings/tmux-2.5.tar.gz
+ 			rm -r $HOME/git/custom-settings/tmux-2.5
+        ;;
+
+		tmux-conf )
+			echo "adding tmux files"
+			cat $HOME/git/custom-settings/tmux.conf > $HOME/.tmux.conf							# custom tmux settings
+		;;
 
         git )
             cat $HOME/git/custom-settings/gitconfig > $HOME/.gitconfig                          # custom gitconfig
