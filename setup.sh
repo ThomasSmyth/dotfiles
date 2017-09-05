@@ -4,7 +4,7 @@ mkdir -p $HOME/.ssh                                                             
 
 for stg in $@; do
     if [ "all" = $stg ]; then
-        stg = "repos bashrc bash vim tmux-conf git scripts kdb"
+        stg = "repos bashrc bash vim git tmux-conf libevent scripts kdb"
     fi
 
     stgs=$stgs" "$stg
@@ -67,6 +67,20 @@ for stg in $stgs; do
             cp $HOME/git/custom-settings/ftplugin/* $HOME/.vim/ftplugin                         # custom filetype settings
         ;;
 
+        git )
+            cat $HOME/git/custom-settings/gitconfig > $HOME/.gitconfig                          # custom gitconfig
+
+            echo "input git name"                                                               # set git name
+            read gitname
+            echo "setting name to $gitname"
+            git config --global user.name "$gitname"
+
+            echo "input git email"                                                              # set git email
+            read gitemail
+            echo "setting email to $gitemail"
+            git config --global user.email "$gitemail"
+        ;;
+
         tmux-dl )
             echo "getting tmux"
             wget https://github.com/tmux/tmux/releases/download/2.5/tmux-2.5.tar.gz
@@ -85,18 +99,18 @@ for stg in $stgs; do
 			cat $HOME/git/custom-settings/tmux.conf > $HOME/.tmux.conf							# custom tmux settings
 		;;
 
-        git )
-            cat $HOME/git/custom-settings/gitconfig > $HOME/.gitconfig                          # custom gitconfig
-
-            echo "input git name"                                                               # set git name
-            read gitname
-            echo "setting name to $gitname"
-            git config --global user.name "$gitname"
-
-            echo "input git email"                                                              # set git email
-            read gitemail
-            echo "setting email to $gitemail"
-            git config --global user.email "$gitemail"
+        libevent )
+            echo "getting libevent"
+            wget https://github.com/libevent/libevent/releases/tag/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
+#            wget https://github.com/downloads/libevent/libevent/libevent-2.0.19-stable.tar.gz
+            tar -xvzf $HOME/git/custom-settings/libevent-2.1.8-stable.tar.gz
+            cd $HOME/git/custom-settings/libevent-2.1.8-stable
+            ./configure --prefix=$HOME/local
+            make
+            make install
+            cd -
+            rm $HOME/git/custom-settings/libevent-2.1.8-stable.tar.gz
+            rm -r $HOME/git/custom-settings/libevent-2.1.8-stable
         ;;
 
         scripts )
