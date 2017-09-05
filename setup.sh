@@ -29,9 +29,9 @@ for stg in $stgs; do
             mkdir -p $HOME/git && cd "$_"
             git clone https://github.com/raylee/tldr.git
             git clone https://github.com/patmok/qvim.git
-            git clone git@github.com:rocketship92/custom-settings.git
-            git clone git@github.com:rocketship92/myfuncs.git
-            git clone git@github.com:rocketship92/segment_comparison.git
+            git clone git@github.com:vibronicshark55/custom-settings.git
+            git clone git@github.com:vibronicshark55/myfuncs.git
+            git clone git@github.com:vibronicshark55/segment_comparison.git
 
             echo "adding tldr"                                                                  # install tldr
             mkdir -p $HOME/local/bin

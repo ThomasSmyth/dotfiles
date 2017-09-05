@@ -40,7 +40,7 @@ fi
 # add user programs to path
 export PATH=~/local/bin:$PATH
 
-if [ -d ~/.bin/q ]; then
+if [ -d ~/local/bin/q ]; then
     export QHOME=~/local/bin/q
     export PATH=~/local/bin/q/l32/:$PATH
 fi
