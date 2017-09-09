@@ -83,15 +83,13 @@ for stg in $stgs; do
 
         tmux-dl )
             echo "getting tmux"
-            wget https://github.com/tmux/tmux/releases/download/2.5/tmux-2.5.tar.gz
- 			tar -xvzf tmux-2.5.tar.gz
- 			cd $HOME/git/custom-settings/tmux-2.5
+            mkdir -p $HOME/git && cd "$_"
+            git clone https://github.com/tmux/tmux.git
+            cd tmux
  			./configure --prefix $HOME/local
  			make
  			make install
  			cd -
- 			rm $HOME/git/custom-settings/tmux-2.5.tar.gz
- 			rm -r $HOME/git/custom-settings/tmux-2.5
         ;;
 
 		tmux-conf )
@@ -101,16 +99,16 @@ for stg in $stgs; do
 
         libevent )
             echo "getting libevent"
-            wget https://github.com/libevent/libevent/releases/tag/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
-#            wget https://github.com/downloads/libevent/libevent/libevent-2.0.19-stable.tar.gz
-            tar -xvzf $HOME/git/custom-settings/libevent-2.1.8-stable.tar.gz
-            cd $HOME/git/custom-settings/libevent-2.1.8-stable
+#            wget https://github.com/libevent/libevent/releases/tag/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
+            wget https://github.com/downloads/libevent/libevent/libevent-2.0.19-stable.tar.gz
+            tar -xvzf $HOME/git/custom-settings/libevent-2.0.19-stable.tar.gz
+            cd $HOME/git/custom-settings/libevent-2.0.19-stable
             ./configure --prefix=$HOME/local
             make
             make install
             cd -
-            rm $HOME/git/custom-settings/libevent-2.1.8-stable.tar.gz
-            rm -r $HOME/git/custom-settings/libevent-2.1.8-stable
+            rm $HOME/git/custom-settings/libevent-2.0.19-stable.tar.gz
+            rm -r $HOME/git/custom-settings/libevent-2.0.19-stable
         ;;
 
         scripts )
