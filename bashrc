@@ -21,6 +21,9 @@ source ~/.git-prompt.sh
 HISTSIZE=1000
 HISTFILESIZE=2000
 HISTCONTROL=ignoreboth                                          # no duplicate lines in history
+# export COLUMNS=1000
+# export LINES=20
+export QINIT=$HOME/.settings.q
 
 # PS1
 export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[1;33m\]@\[\033[01;34m\]\h\[\033[01;37m\] \w\[\033[1;33m\]$(__git_ps1 " [%s]")> \[\033[00m\]'

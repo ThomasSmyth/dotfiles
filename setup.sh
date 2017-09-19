@@ -51,6 +51,7 @@ for stg in $stgs; do
 
         bashrc )
             echo "adding to bashrc"                                                             # add settings
+            cat $HOME/git/custom-settings/settings.q > $HOME/.settings.q
             cat $HOME/git/custom-settings/bashrc >> $HOME/.bashrc                               # custom bashrc
         ;;
 
