@@ -48,16 +48,18 @@ for stg in $stgs; do
             cd -
         ;;
 
-
         bashrc )
             echo "adding to bashrc"                                                             # add settings
+            if [ ! "source ~/.bash_custom.sh" = "$(tail -n 1 ~/.bashrc)" ]; then
+                echo "source ~/.bash_custom.sh" >> ~/.bashrc
+            fi
+            cat $HOME/git/custom-settings/bash_custom.sh > $HOME/.bash_custom.sh                # custom bash settings
             cat $HOME/git/custom-settings/settings.q > $HOME/.settings.q
-            cat $HOME/git/custom-settings/bashrc >> $HOME/.bashrc                               # custom bashrc
         ;;
 
         bash )
             echo "adding additional bash files"                                                 # add settings
-            cat $HOME/git/custom-settings/bash_functions.sh > $HOME/.bash_functions             # alias for use in bash
+            cat $HOME/git/custom-settings/bash_functions.sh > $HOME/.bash_functions.sh          # alias for use in bash
             cat $HOME/git/custom-settings/bash_aliases.sh > $HOME/.bash_aliases.sh              # alias for use in bash
         ;;
 

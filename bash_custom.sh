@@ -5,13 +5,13 @@ case $- in
 esac
 
 # set aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f ~/.bash_aliases.sh ]; then
+    source ~/.bash_aliases.sh
 fi
 
 # set functions
-if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
+if [ -f ~/.bash_functions.sh ]; then
+    source ~/.bash_functions.sh
 fi
 
 # files to sourse
