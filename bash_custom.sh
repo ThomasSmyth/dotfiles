@@ -25,6 +25,11 @@ HISTCONTROL=ignoreboth                                          # no duplicate l
 # export LINES=20
 export QINIT=$HOME/.settings.q
 
+# enable bash completion in interactive shells
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
 # PS1
 export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[1;33m\]@\[\033[01;34m\]\h\[\033[01;37m\] \w\[\033[1;33m\]$(__git_ps1 " [%s]")> \[\033[00m\]'
 
