@@ -4,7 +4,7 @@ mkdir -p $HOME/.ssh                                                             
 
 for stg in $@; do
     if [ "all" = $stg ]; then
-        stg = "repos bashrc bash vim git tmux-conf libevent scripts kdb"
+        stg="repos bashrc bash vim git tmux-conf libevent scripts kdb"
     fi
 
     stgs=$stgs" "$stg
@@ -88,7 +88,7 @@ for stg in $stgs; do
             echo "getting tmux"
             mkdir -p $HOME/git && cd "$_"
             git clone https://github.com/tmux/tmux.git
-            cd tmux
+            cd $HOME/git/tmux
  			./configure --prefix $HOME/local
  			make
  			make install
