@@ -89,16 +89,16 @@ for stg in $stgs; do
             mkdir -p $HOME/git && cd "$_"
             git clone https://github.com/tmux/tmux.git
             cd $HOME/git/tmux
- 			./configure --prefix $HOME/local
- 			make
- 			make install
- 			cd -
+            ./configure --prefix $HOME/local
+            make
+            make install
+            cd -
         ;;
 
-		tmux-conf )
-			echo "adding tmux files"
-			cat $HOME/git/custom-settings/tmux.conf > $HOME/.tmux.conf							# custom tmux settings
-		;;
+        tmux-conf )
+            echo "adding tmux files"
+            cat $HOME/git/custom-settings/tmux.conf > $HOME/.tmux.conf                          # custom tmux settings
+        ;;
 
         libevent )
             echo "getting libevent"

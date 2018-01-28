@@ -10,9 +10,9 @@ for u in $sudolist; do
         if [ -f ~/linuxx86.zip ]; then
             echo "installing kdb+"
             unzip ~/linuxx86.zip
-            mv q ~/.bin/
-            export QHOME=~/.bin/q
-            export PATH=~/.bin/q/l32/:$PATH
+            mv q/ ~/local/bin/
+            export QHOME=~/local/bin/q
+            export PATH=~/local/bin/q/l32/:$PATH
         fi
     fi
 done
