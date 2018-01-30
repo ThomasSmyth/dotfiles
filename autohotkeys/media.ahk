@@ -1,3 +1,5 @@
+; add to startup programs
+
 F1::
 	Send {Media_Play_Pause}
 return
