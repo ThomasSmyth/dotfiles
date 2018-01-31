@@ -17,7 +17,7 @@ for stg in $stgs; do
         gitkeys )
             echo "Creating git keys, enter git email"
             read gitemail
-            ssh-keygen -N '' -t rsa -b 4096 -C "$gitemail" -f  $HOME/.ssh/${HOSTNAME}_key
+            ssh-keygen -N '' -t rsa -b 4096 -C "$gitemail" -f $HOME/.ssh/${HOSTNAME}_key
             echo "Host github.com" >> $HOME/.ssh/config
             echo "IdentityFile $HOME/.ssh/${HOSTNAME}_key" >> $HOME/.ssh/config
             echo "Add key to github before proceeding"
@@ -59,8 +59,9 @@ for stg in $stgs; do
 
         bash )
             echo "adding additional bash files"                                                 # add settings
-            cat $HOME/git/custom-settings/bash_functions.sh > $HOME/.bash_functions.sh          # alias for use in bash
-            cat $HOME/git/custom-settings/bash_aliases.sh > $HOME/.bash_aliases.sh              # alias for use in bash
+            mkdir -p $HOME/.custom																# create dir for custom scripts
+            cat $HOME/git/custom-settings/bash_functions.sh > $HOME/.custom/bash_functions.sh   # alias for use in bash
+            cat $HOME/git/custom-settings/bash_aliases.sh > $HOME/.custom/bash_aliases.sh       # alias for use in bash
         ;;
 
         vim )
