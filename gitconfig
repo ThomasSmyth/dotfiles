@@ -14,7 +14,3 @@
     default = simple
 [core]
     editor = vim
-[includeIf "gitdir:~/git/custom-settings/"]
-    path = .gitconfig-personal
-[includeIf "gitdir:~/git/myfuncs/"]
-    path = .gitconfig-personal
