@@ -51,17 +51,17 @@ for stg in $stgs; do
         bashrc )
             echo "adding to bashrc"                                                             # add settings
             if [ ! "source ~/.bash_custom.sh" = "$(tail -n 1 ~/.bashrc)" ]; then
-                echo "source ~/.bash_custom.sh" >> ~/.bashrc
+                echo "source ~/.bash_custom.sh" >> ~/.bashrc									# ensure custom settings are picked up by bashrc
             fi
-            cat $HOME/git/custom-settings/bash_custom.sh > $HOME/.bash_custom.sh                # custom bash settings
+            cat $HOME/git/custom-settings/bash/bash_custom.sh > $HOME/.bash_custom.sh           # custom bash settings
             cat $HOME/git/custom-settings/settings.q > $HOME/.settings.q
         ;;
 
         bash )
             echo "adding additional bash files"                                                 # add settings
             mkdir -p $HOME/.custom																# create dir for custom scripts
-            cat $HOME/git/custom-settings/bash_functions.sh > $HOME/.custom/bash_functions.sh   # alias for use in bash
-            cat $HOME/git/custom-settings/bash_aliases.sh > $HOME/.custom/bash_aliases.sh       # alias for use in bash
+            cat $HOME/git/custom-settings/bash/bash_functions.sh > $HOME/.custom/bash_functions.sh   # alias for use in bash
+            cat $HOME/git/custom-settings/bash/bash_aliases.sh > $HOME/.custom/bash_aliases.sh  # alias for use in bash
         ;;
 
         vim )
