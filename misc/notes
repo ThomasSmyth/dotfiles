@@ -1,0 +1,24 @@
+# config for 2 github accounts
+# set remote url to gh-personal:<user>/<repo>.git
+
+# ~/.ssh/config - key details for 2 users
+Host gh-work
+HostName github.com
+User git
+IdentityFile ~/.ssh/<key>
+IdentitiesOnly yes
+AddKeysToAgent yes
+
+Host gh-personal
+HostName github.com
+User git
+IdentityFile ~/.ssh/<key>
+IdentitiesOnly yes
+AddKeysToAgent yes
+
+# ~/.bash_functions - bash function to add keys
+ssha (){
+  eval $(ssh-agent -s)
+  ssh-add ~/.ssh/<key1>
+  ssh-add ~/.ssh/<key2>
+ }
