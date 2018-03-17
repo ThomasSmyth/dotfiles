@@ -2,6 +2,8 @@ mkdir -p $HOME/.ssh                                                             
 
 ## settings
 
+custhome=$HOME/git/custom-settings/
+
 for stg in $@; do
     if [ "all" = $stg ]; then
         stg="repos bashrc bash vim git tmux-conf libevent scripts kdb"
@@ -53,26 +55,26 @@ for stg in $stgs; do
             if [ ! "source ~/.bash_custom.sh" = "$(tail -n 1 ~/.bashrc)" ]; then
                 echo "source ~/.bash_custom.sh" >> ~/.bashrc									# ensure custom settings are picked up by bashrc
             fi
-            cat $HOME/git/custom-settings/bash/bash_custom.sh > $HOME/.bash_custom.sh           # custom bash settings
-            cat $HOME/git/custom-settings/settings.q > $HOME/.settings.q
+            cat $custhome/bash/bash_custom.sh > $HOME/.bash_custom.sh           # custom bash settings
+            cat $custhome/settings.q > $HOME/.settings.q
         ;;
 
         bash )
             echo "adding additional bash files"                                                 # add settings
             mkdir -p $HOME/.custom																# create dir for custom scripts
-            cat $HOME/git/custom-settings/bash/bash_functions.sh > $HOME/.custom/bash_functions.sh   # alias for use in bash
-            cat $HOME/git/custom-settings/bash/bash_aliases.sh > $HOME/.custom/bash_aliases.sh  # alias for use in bash
+            cat $custhome/bash/bash_functions.sh > $HOME/.custom/bash_functions.sh   # alias for use in bash
+            cat $custhome/bash/bash_aliases.sh > $HOME/.custom/bash_aliases.sh  # alias for use in bash
         ;;
 
         vim )
             echo "adding vim settings files"                                                    # add settings
-            cat $HOME/git/custom-settings/vimrc > $HOME/.vimrc                                  # custom vimrc
+            cat $custhome/vimrc > $HOME/.vimrc                                  # custom vimrc
             mkdir -p $HOME/.vim/ftplugin
-            cp $HOME/git/custom-settings/ftplugin/* $HOME/.vim/ftplugin                         # custom filetype settings
+            cp $custhome/ftplugin/* $HOME/.vim/ftplugin                         # custom filetype settings
         ;;
 
         git )
-            cat $HOME/git/custom-settings/gitconfig > $HOME/.gitconfig                          # custom gitconfig
+            cat $custhome/gitconfig > $HOME/.gitconfig                          # custom gitconfig
 
             echo "input git name"                                                               # set git name
             read gitname
@@ -98,31 +100,31 @@ for stg in $stgs; do
 
         tmux-conf )
             echo "adding tmux files"
-            cat $HOME/git/custom-settings/tmux.conf > $HOME/.tmux.conf                          # custom tmux settings
+            cat $custhome/tmux.conf > $HOME/.tmux.conf                          # custom tmux settings
         ;;
 
         libevent )
             echo "getting libevent"
 #            wget https://github.com/libevent/libevent/releases/tag/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
             wget https://github.com/downloads/libevent/libevent/libevent-2.0.19-stable.tar.gz
-            tar -xvzf $HOME/git/custom-settings/libevent-2.0.19-stable.tar.gz
-            cd $HOME/git/custom-settings/libevent-2.0.19-stable
+            tar -xvzf $custhome/libevent-2.0.19-stable.tar.gz
+            cd $custhome/libevent-2.0.19-stable
             ./configure --prefix=$HOME/local
             make
             make install
             cd -
-            rm $HOME/git/custom-settings/libevent-2.0.19-stable.tar.gz
-            rm -r $HOME/git/custom-settings/libevent-2.0.19-stable
+            rm $custhome/libevent-2.0.19-stable.tar.gz
+            rm -r $custhome/libevent-2.0.19-stable
         ;;
 
         scripts )
             mkdir -p $HOME/scripts                                                              # custom scripts
-            cp -rsf $HOME/git/custom-settings/scripts/* $HOME/scripts/
+            cp -rsf $custhome/scripts/* $HOME/scripts/
         ;;
 
         kdb )
             echo "checking for kdb+"
-            . $HOME/git/custom-settings/kdb_install.sh
+            . $custhome/kdb_install.sh
         ;;
 
         * )
@@ -139,3 +141,5 @@ echo "sourcing $HOME/.bashrc"                                                   
 source $HOME/.bashrc
 
 echo "setup complete"
+
+unset custhome
