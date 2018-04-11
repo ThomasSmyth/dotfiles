@@ -58,7 +58,6 @@ for stg in $stgs; do
       if [ ! "source ~/.bash_custom.sh" = "$(tail -n 1 ~/.bashrc)" ]; then
           echo "source ~/.bash_custom.sh" >> ~/.bashrc									        # ensure custom settings are picked up by bashrc
       fi
-      cat $custhome/bash/bash_custom.sh > $HOME/.bash_custom.sh                                 # custom bash settings
     ;;
 
     dotfiles )
