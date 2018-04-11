@@ -28,7 +28,7 @@ AddKeysToAgent yes
 Remote URLs must be updated after the Host configs are set using
 `git remote set-url`. For this repo the new URL may look like:
 
-```
+```bash
 git remote set-url gh-personal:vibronicshark55/custom-settings.git
 ```
 It may also be required to add the keys to the `ssh-agent`. To automate the

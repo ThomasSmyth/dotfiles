@@ -15,36 +15,29 @@ for stg in $stgs; do
 
   case $stg in
 
-    gitkeys )
-      echo "Creating git keys, enter git email"
-      read gitemail
-      mkdir -p $HOME/.ssh                                                                       # create ssh dir
-      ssh-keygen -N '' -t rsa -b 4096 -C "$gitemail" -f $HOME/.ssh/${HOSTNAME}_key
-      echo "Host github.com" >> $HOME/.ssh/config
-      echo "IdentityFile $HOME/.ssh/${HOSTNAME}_key" >> $HOME/.ssh/config
-      echo "Add key to github before proceeding"
-      return 0
-    ;;
-
     repos )
       echo "cloning repos"                                                                      # clone necessary repos
       while read line; do
         gf=$(basename $line)                                                                    # return *.git file
-        gn=$HOME/git/${gf%$".git"}																# drop .git to return directory name
-        if [ ! -d $gn ]; then																	# check if repo has been cloned
+        gn=$HOME/git/${gf%$".git"}                                                              # drop .git to return directory name
+        if [ ! -d $gn ]; then                                                                   # check if repo has been cloned
           echo "cloning $gf"
-          mkdir -p $gn																			# create directory to store repo
-          git clone $line $gn																	# clone repo
+          mkdir -p $gn                                                                          # create directory to store repo
+          git clone $line $gn                                                                   # clone repo
         fi
       done < $rootc/repos.txt                                                                   # file contains list of repos to clone
 
-      echo "adding tldr"                                                                        # install tldr
-      mkdir -p $HOME/local/bin
-      curl -o $HOME/local/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
-      chmod +x $HOME/local/bin/tldr
+      if [ ! -f $HOME/local/bin/tldr ]; then                                                    # check SSH exists for current host, creating of necessary
+        echo "adding tldr"                                                                      # install tldr
+        mkdir -p $HOME/local/bin
+        curl -o $HOME/local/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
+        chmod +x $HOME/local/bin/tldr
+      fi
 
-      echo "fetching git-prompt.sh"                                                             # get git prompt script
-      wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+      if [ ! -f $HOME/.gitprompt.sh ]; then                                                     # check SSH exists for current host, creating of necessary
+        echo "fetching git-prompt.sh"                                                           # get git prompt script
+        wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+      fi
 
       echo "adding kdb syntax highlighting"                                                     # vim kdb syntax highlighting
       mkdir -p $HOME/.vim
@@ -56,7 +49,7 @@ for stg in $stgs; do
     bashrc )
       echo "adding to bashrc"                                                                   # add settings
       if [ ! "source ~/.bash_custom.sh" = "$(tail -n 1 ~/.bashrc)" ]; then
-          echo "source ~/.bash_custom.sh" >> ~/.bashrc									        # ensure custom settings are picked up by bashrc
+          echo "source ~/.bash_custom.sh" >> ~/.bashrc                                          # ensure custom settings are picked up by bashrc
       fi
     ;;
 
