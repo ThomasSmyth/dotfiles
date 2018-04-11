@@ -1,10 +1,11 @@
-mkdir -p $HOME/.ssh                                                                             # create ssh dir
+## initialise settings
 
-## settings
+rootc=$(dirname "${BASH_SOURCE}")                                                               # return custom settings directory
+dfiles=$rootc/dotfiles
 
 for stg in $@; do
     if [ "all" = $stg ]; then
-        stg="repos bashrc bash vim git tmux-conf scripts kdb"
+        stg="repos bashrc dotfiles git scripts kdb"
     fi
 
     stgs=$stgs" "$stg
@@ -17,6 +18,7 @@ for stg in $stgs; do
     gitkeys )
       echo "Creating git keys, enter git email"
       read gitemail
+      mkdir -p $HOME/.ssh                                                                       # create ssh dir
       ssh-keygen -N '' -t rsa -b 4096 -C "$gitemail" -f $HOME/.ssh/${HOSTNAME}_key
       echo "Host github.com" >> $HOME/.ssh/config
       echo "IdentityFile $HOME/.ssh/${HOSTNAME}_key" >> $HOME/.ssh/config
@@ -25,7 +27,6 @@ for stg in $stgs; do
     ;;
 
     repos )
-
       echo "cloning repos"                                                                      # clone necessary repos
       while read line; do
         gf=$(basename $line)                                                                    # return *.git file
@@ -35,7 +36,7 @@ for stg in $stgs; do
           mkdir -p $gn																			# create directory to store repo
           git clone $line $gn																	# clone repo
         fi
-      done < "$(dirname "${BASH_SOURCE}")/repos.txt"                                            # file contains list of repos to download
+      done < $rootc/repos.txt                                                                   # file contains list of repos to clone
 
       echo "adding tldr"                                                                        # install tldr
       mkdir -p $HOME/local/bin
@@ -58,26 +59,14 @@ for stg in $stgs; do
           echo "source ~/.bash_custom.sh" >> ~/.bashrc									        # ensure custom settings are picked up by bashrc
       fi
       cat $custhome/bash/bash_custom.sh > $HOME/.bash_custom.sh                                 # custom bash settings
-      cat $custhome/settings.q > $HOME/.settings.q
     ;;
 
-    bash )
-      echo "adding additional bash files"                                                       # add settings
-      mkdir -p $HOME/.custom															          # create dir for custom scripts
-      cat $custhome/bash/bash_functions.sh > $HOME/.custom/bash_functions.sh                    # alias for use in bash
-      cat $custhome/bash/bash_aliases.sh > $HOME/.custom/bash_aliases.sh                        # alias for use in bash
-    ;;
-
-    vim )
-      echo "adding vim settings files"                                                          # add settings
-      cat $custhome/vimrc > $HOME/.vimrc                                                        # custom vimrc
-      mkdir -p $HOME/.vim/ftplugin
-      cp $custhome/ftplugin/*.vim $HOME/.vim/ftplugin                                           # custom filetype settings
+    dotfiles )
+      echo "adding dotfiles"                                                                    # add dotfiles
+      cp -r $dfiles/* ~                                                                         # copy to homedir
     ;;
 
     git )
-      cat $custhome/gitconfig > $HOME/.gitconfig                                                # custom gitconfig
-
       echo "input git name"                                                                     # set git name
       read gitname
       echo "setting name to $gitname"
@@ -87,22 +76,6 @@ for stg in $stgs; do
       read gitemail
       echo "setting email to $gitemail"
       git config --global user.email "$gitemail"
-    ;;
-
-    tmux-dl )
-      echo "getting tmux"
-      mkdir -p $HOME/git && cd "$_"
-      git clone https://github.com/tmux/tmux.git
-      cd $HOME/git/tmux
-      ./configure --prefix $HOME/local
-      make
-      make install
-      cd -
-    ;;
-
-    tmux-conf )
-      echo "adding tmux files"
-      cat $custhome/tmux.conf > $HOME/.tmux.conf                                                # custom tmux settings
     ;;
 
     libevent )

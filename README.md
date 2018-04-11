@@ -1,9 +1,11 @@
 # Custom Settings
 
-Set up is handled by the script `setup.sh`, which should be retrieved as a standalone file:
+This repo stores and manages the install of various dotfiles and settings files.
+
+Set up is handled by the script `init.sh`, which should be retrieved as a standalone file:
 
 ```
-wget https://raw.githubusercontent.com/vibronicshark55/custom-settings/master/setup.sh
+wget https://raw.githubusercontent.com/vibronicshark55/custom-settings/master/init.sh
 ```
 
 The script handles
@@ -19,20 +21,19 @@ The script handles
 On the initial use of this scripts git keys must be created,
 this can be done with:
 ```
-. setup.sh gitkeys
+. init.sh gitkeys
 ```
 the public key should be added to [github](https://github.com/settings/keys).
 
 After this all settings can be installed by using `all`:
 ```
-. setup.sh all
+. init.sh all
 ```
 NOTE: `gitkeys`,`libevent` and `tmux-dl` are not included in `all`
 
 
 ## Repos
 
-* [tldr](https://github.com/raylee/tldr)
 * [vim-qkdb-syntax](https://github.com/katusk/vim-qkdb-syntax)
 * [custom-settings](https://github.com/vibronicshark55/custom-settings)
 * [myfuncs](https://github.com/vibronicshark55/myfuncs)
@@ -46,7 +47,7 @@ NOTE: `gitkeys`,`libevent` and `tmux-dl` are not included in `all`
 To install kdb+ the user will need sudo access and the `linuxx86.zip` file from [kx](https://kx.com/download/).
 This final should be placed in the users home directory.
 
-## Settings
+## Dotfiles
 
 Various settings files are included:
 

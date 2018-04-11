@@ -23,7 +23,6 @@ HISTFILESIZE=2000
 HISTCONTROL=ignoreboth                                          # no duplicate lines in history
 # export COLUMNS=1000
 # export LINES=20
-# export QINIT=$HOME/.settings.q
 
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
