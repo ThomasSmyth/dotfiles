@@ -55,26 +55,26 @@ for stg in $stgs; do
             if [ ! "source ~/.bash_custom.sh" = "$(tail -n 1 ~/.bashrc)" ]; then
                 echo "source ~/.bash_custom.sh" >> ~/.bashrc									# ensure custom settings are picked up by bashrc
             fi
-            cat $custhome/bash/bash_custom.sh > $HOME/.bash_custom.sh           # custom bash settings
+            cat $custhome/bash/bash_custom.sh > $HOME/.bash_custom.sh                           # custom bash settings
             cat $custhome/settings.q > $HOME/.settings.q
         ;;
 
         bash )
             echo "adding additional bash files"                                                 # add settings
             mkdir -p $HOME/.custom																# create dir for custom scripts
-            cat $custhome/bash/bash_functions.sh > $HOME/.custom/bash_functions.sh   # alias for use in bash
-            cat $custhome/bash/bash_aliases.sh > $HOME/.custom/bash_aliases.sh  # alias for use in bash
+            cat $custhome/bash/bash_functions.sh > $HOME/.custom/bash_functions.sh              # alias for use in bash
+            cat $custhome/bash/bash_aliases.sh > $HOME/.custom/bash_aliases.sh                  # alias for use in bash
         ;;
 
         vim )
             echo "adding vim settings files"                                                    # add settings
-            cat $custhome/vimrc > $HOME/.vimrc                                  # custom vimrc
+            cat $custhome/vimrc > $HOME/.vimrc                                                  # custom vimrc
             mkdir -p $HOME/.vim/ftplugin
-            cp $custhome/ftplugin/* $HOME/.vim/ftplugin                         # custom filetype settings
+            cp $custhome/ftplugin/*.vim $HOME/.vim/ftplugin                                     # custom filetype settings
         ;;
 
         git )
-            cat $custhome/gitconfig > $HOME/.gitconfig                          # custom gitconfig
+            cat $custhome/gitconfig > $HOME/.gitconfig                                          # custom gitconfig
 
             echo "input git name"                                                               # set git name
             read gitname
@@ -100,7 +100,7 @@ for stg in $stgs; do
 
         tmux-conf )
             echo "adding tmux files"
-            cat $custhome/tmux.conf > $HOME/.tmux.conf                          # custom tmux settings
+            cat $custhome/tmux.conf > $HOME/.tmux.conf                                          # custom tmux settings
         ;;
 
         libevent )
