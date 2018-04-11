@@ -34,6 +34,8 @@ NOTE: `gitkeys`,`libevent` and `tmux-dl` are not included in `all`
 
 ## Repos
 
+LINK to repos text file here
+
 * [vim-qkdb-syntax](https://github.com/katusk/vim-qkdb-syntax)
 * [custom-settings](https://github.com/vibronicshark55/custom-settings)
 * [myfuncs](https://github.com/vibronicshark55/myfuncs)
