@@ -102,5 +102,7 @@ augroup JumpCursorOnEdit                                                " restor
             \ endif
 augroup END
 
+" au! BufRead,BufNewFile *.ext setfiletype ext                           " create custom file extension for use with ftplugin
+
 set paste                                                               " paste formatting correctly
 set ruler                                                               " show column number in status bar
