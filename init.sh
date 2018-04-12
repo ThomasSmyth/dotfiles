@@ -6,7 +6,7 @@ dfiles=$rootc/dotfiles
 stgs=""
 for stg in $@; do
     if [ "all" = $stg ]; then
-        stg="repos bashrc dotfiles git vim scripts kdb tldr tmux_install"
+        stg="repos dotfiles bashrc git vim scripts kdb tldr tmux_install"
     fi
 
     stgs="$stgs $stg"
@@ -29,6 +29,11 @@ for stg in $stgs; do
       done < $rootc/repos.txt                                                                   # file contains list of repos to clone
     ;;
 
+    dotfiles )
+      echo "adding dotfiles"                                                                    # add dotfiles
+      cp -r $dfiles/* ~                                                                         # copy to homedir
+    ;;
+
     bashrc )
       echo "adding to bashrc"                                                                   # add settings
       if [ ! "source ~/.bash_custom.sh" = "$(tail -n 1 ~/.bashrc)" ]; then
@@ -39,11 +44,6 @@ for stg in $stgs; do
         wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
       fi
 
-    ;;
-
-    dotfiles )
-      echo "adding dotfiles"                                                                    # add dotfiles
-      cp -r $dfiles/* ~                                                                         # copy to homedir
     ;;
 
     git )
@@ -74,7 +74,12 @@ for stg in $stgs; do
 
     kdb )
       echo "checking for kdb+"
-      . $custhome/kdb_install.sh
+      if [ -z `which tmux` ]; then
+        echo "attempting to install kdb+"
+        . $custhome/kdb_install.sh
+      else
+        echo "kdb+ already installed"
+      fi
     ;;
 
     tldr )
@@ -88,7 +93,7 @@ for stg in $stgs; do
 
     tmux_install )
       if [ -z `which tmux` ]; then
-        echo "install tmux"
+        echo "installing tmux"
         cd $HOME/git/tmux
         ./configure --prefix $HOME/local
         make
