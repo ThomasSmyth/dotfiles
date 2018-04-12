@@ -42,22 +42,23 @@ The following are details of the available settings.
 
 ### repos
 
-Will clone the repos listed in [repos.txt](repos.txt).
+Will clone the repos listed in [`repos.txt`](repos.txt).
 
 ### dotfiles
 
 Various settings files are included:
 
-- [.bash_custom.sh](dotfiles/.bash_custom.sh) - environment settings
-- [.custom/](dotfiles/.custom) - bash functions and aliases
-- [.vimrc](dotfiles/.vimrc) - vim settings
-- [.vim/ftplugin](.vim/ftplugin) - language specific plugins
-- [.gitconfig](dotfiles/.gitconfig) - git aliases and settings
-- [.tmux.conf](dotfiles/.tmux.conf) - custom prefix and bindings
+- [`.bash_custom.sh`](dotfiles/.bash_custom.sh) - environment settings
+- [`.custom/`](dotfiles/.custom) - bash functions and aliases
+- [`.vimrc`](dotfiles/.vimrc) - vim settings
+- [`.vim/ftplugin`](.vim/ftplugin) - language specific plugins
+- [`.gitconfig`](dotfiles/.gitconfig) - git aliases and settings
+- [`.tmux.conf`](dotfiles/.tmux.conf) - custom prefix and bindings
 
 ### bashrc
 
-Ensures that `.bash_custom.sh` is sourced in `.bashrc`, and installs
+Ensures that [`.bash_custom.sh`](dotfiles/.bash_custom.sh) is sourced in
+`.bashrc`, and installs
 [`git-prompt.sh`](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
 which is sourced by the custom bash file.
 
@@ -73,8 +74,8 @@ Adds [kdb syntax highlighting](https://github.com/patmok/qvim) from
 ### scripts
 
 Adds:
-- [multigrep.sh](scripts/multigrep.sh) - simplified multiple word search for grep
-- [tmux_session.sh](scripts/tmux_session.sh) - basic tmux session template
+- [`multigrep.sh`](scripts/multigrep.sh) - simplified multiple word search for grep
+- [`tmux_session.sh`](scripts/tmux_session.sh) - basic tmux session template
 
 ### kdb
 
@@ -94,4 +95,5 @@ exist on the host.
 
 ### libevent
 
-Installs libevent, can't remember why this was needed.
+Installs [libevent](https://github.com/libevent/libevent/releases/tag/release-2.0.19-stable),
+can't remember why this was needed.
