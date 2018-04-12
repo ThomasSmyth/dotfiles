@@ -2,6 +2,8 @@
 
 This repo stores and manages the install of various dotfiles and settings files.
 
+Initial set up is handled by `onetime.sh`, followed by `init.sh`.
+
 Set up is handled by the script `init.sh`, which should be retrieved as a standalone file:
 
 ```

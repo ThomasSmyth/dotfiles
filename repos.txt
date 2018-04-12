@@ -1,4 +1,5 @@
-https://github.com/patmok/qvim.git
 git@github.com:vibronicshark55/custom-settings.git
 git@github.com:vibronicshark55/myfuncs.git
 git@github.com:vibronicshark55/segment_comparison.git
+https://github.com/patmok/qvim.git
+https://github.com/tmux/tmux.git

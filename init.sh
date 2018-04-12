@@ -3,12 +3,13 @@
 rootc=$(dirname "${BASH_SOURCE}")                                                               # return custom settings directory
 dfiles=$rootc/dotfiles
 
+stgs=""
 for stg in $@; do
     if [ "all" = $stg ]; then
-        stg="repos bashrc dotfiles git scripts kdb"
+        stg="repos bashrc dotfiles git vim scripts kdb tldr tmux_install"
     fi
 
-    stgs=$stgs" "$stg
+    stgs="$stgs $stg"
 done
 
 for stg in $stgs; do
@@ -26,24 +27,6 @@ for stg in $stgs; do
           git clone $line $gn                                                                   # clone repo
         fi
       done < $rootc/repos.txt                                                                   # file contains list of repos to clone
-
-      if [ ! -f $HOME/local/bin/tldr ]; then                                                    # check SSH exists for current host, creating of necessary
-        echo "adding tldr"                                                                      # install tldr
-        mkdir -p $HOME/local/bin
-        curl -o $HOME/local/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
-        chmod +x $HOME/local/bin/tldr
-      fi
-
-      if [ ! -f $HOME/.gitprompt.sh ]; then                                                     # check SSH exists for current host, creating of necessary
-        echo "fetching git-prompt.sh"                                                           # get git prompt script
-        wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-      fi
-
-      echo "adding kdb syntax highlighting"                                                     # vim kdb syntax highlighting
-      mkdir -p $HOME/.vim
-      cp -r $HOME/git/qvim/.vim/* $HOME/.vim
-
-      cd -
     ;;
 
     bashrc )
@@ -51,6 +34,11 @@ for stg in $stgs; do
       if [ ! "source ~/.bash_custom.sh" = "$(tail -n 1 ~/.bashrc)" ]; then
           echo "source ~/.bash_custom.sh" >> ~/.bashrc                                          # ensure custom settings are picked up by bashrc
       fi
+      if [ ! -f $HOME/.gitprompt.sh ]; then                                                     # check SSH exists for current host, creating of necessary
+        echo "fetching git-prompt.sh"                                                           # get git prompt script
+        wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+      fi
+
     ;;
 
     dotfiles )
@@ -70,6 +58,45 @@ for stg in $stgs; do
       git config --global user.email "$gitemail"
     ;;
 
+    vim )
+      echo "adding kdb syntax highlighting"                                                     # vim kdb syntax highlighting
+      if [ -d $HOME/git/qvim ]
+        cp -r $HOME/git/qvim/.vim/* $HOME/.vim
+      else
+        echo "qvim not cloned"
+      fi
+    ;;
+
+    scripts )
+      mkdir -p $HOME/scripts                                                                    # custom scripts
+      cp -rsf $custhome/scripts/* $HOME/scripts/
+    ;;
+
+    kdb )
+      echo "checking for kdb+"
+      . $custhome/kdb_install.sh
+    ;;
+
+    tldr )
+      if [ ! -f $HOME/local/bin/tldr ]; then                                                    # check if tld has been installed
+        echo "adding tldr"                                                                      # install tldr
+        mkdir -p $HOME/local/bin
+        curl -o $HOME/local/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
+        chmod +x $HOME/local/bin/tldr
+      fi
+    ;;
+
+    tmux_install )
+      if [ -z `which tmux` ]; then
+        echo "install tmux"
+        cd $HOME/git/tmux
+        ./configure --prefix $HOME/local
+        make
+        make install
+        cd -
+      fi
+    ;;
+
     libevent )
       echo "getting libevent"
 #      wget https://github.com/libevent/libevent/releases/tag/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
@@ -82,16 +109,6 @@ for stg in $stgs; do
       cd -
       rm $custhome/libevent-2.0.19-stable.tar.gz
       rm -r $custhome/libevent-2.0.19-stable
-    ;;
-
-    scripts )
-      mkdir -p $HOME/scripts                                                                    # custom scripts
-      cp -rsf $custhome/scripts/* $HOME/scripts/
-    ;;
-
-    kdb )
-      echo "checking for kdb+"
-      . $custhome/kdb_install.sh
     ;;
 
     * )
