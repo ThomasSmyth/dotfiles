@@ -31,7 +31,7 @@ for stg in $stgs; do
 
     dotfiles )
       echo "adding dotfiles"                                                                    # add dotfiles
-      cp -rsf $dfiles/* ~                                                                       # softlink dotfiles to homedir
+      cp -rsf $dfiles/. $HOME                                                                   # symlink dotfiles to homedir
     ;;
 
     bashrc )

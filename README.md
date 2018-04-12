@@ -19,7 +19,7 @@ does not already exist.
 
 ## Add dotfiles
 
-The addition of dotfiles and other settings is handled by [`init.sh`](init.sh)
+The addition of dotfiles and other settings is handled by [`install.sh`](install.sh)
 which is available upon cloning this repo. This script must then be passed then
 name of the settings to install, or all. The following options are available:
 
