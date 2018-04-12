@@ -46,7 +46,7 @@ Will clone the repos listed in [`repos.txt`](repos.txt).
 
 ### dotfiles
 
-Various settings files are included:
+The following files will be softlinked to `$HOME`:
 
 - [`.bash_custom.sh`](dotfiles/.bash_custom.sh) - environment settings
 - [`.custom/`](dotfiles/.custom) - bash functions and aliases
@@ -69,7 +69,7 @@ Adds global git user and email.
 ### vim
 
 Adds [kdb syntax highlighting](https://github.com/patmok/qvim) from
-[patmok](https://github.com/patmok). 
+[patmok](https://github.com/patmok).
 
 ### scripts
 

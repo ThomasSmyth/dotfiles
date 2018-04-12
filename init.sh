@@ -31,7 +31,7 @@ for stg in $stgs; do
 
     dotfiles )
       echo "adding dotfiles"                                                                    # add dotfiles
-      cp -r $dfiles/* ~                                                                         # copy to homedir
+      cp -rsf $dfiles/* ~                                                                       # softlink dotfiles to homedir
     ;;
 
     bashrc )
@@ -61,7 +61,7 @@ for stg in $stgs; do
     vim )
       echo "adding kdb syntax highlighting"                                                     # vim kdb syntax highlighting
       if [ -d $HOME/git/qvim ]
-        cp -r $HOME/git/qvim/.vim/* $HOME/.vim
+        cp -rsf $HOME/git/qvim/.vim/* $HOME/.vim
       else
         echo "qvim not cloned"
       fi
