@@ -2,11 +2,7 @@
 
 ## initialise settings
 
-rootc=$(dirname "${BASH_SOURCE}")                                                               # return custom settings directory
-if [ $rootc = "." ]; then                                                                       # add protection against copying to current dir
-  rootc=$PWD
-fi
-
+rootc=$PWD/$(dirname "${BASH_SOURCE}")                                                          # return custom settings directory
 dfiles=$rootc/dotfiles
 stgs=""
 
