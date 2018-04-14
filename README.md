@@ -26,7 +26,7 @@ name of the settings to install, or all. The following options are available:
 - [repos](#repos)
 - [bashrc](#bashrc)
 - [dotfiles](#dotfiles)
-- [git](#git)
+- [git](#git)\*
 - [vim](#vim)
 - [scripts](#scripts)
 - [kdb](#kdb)

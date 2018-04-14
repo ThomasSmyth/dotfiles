@@ -12,7 +12,7 @@ stgs=""
 
 for stg in $@; do
     if [ "all" = $stg ]; then
-        stg="repos dotfiles bashrc git vim scripts kdb tldr tmux_install"
+        stg="repos dotfiles bashrc vim scripts kdb tldr tmux_install"
     fi
 
     stgs="$stgs $stg"
@@ -74,18 +74,13 @@ for stg in $stgs; do
     ;;
 
     scripts )
+      echo "copying scripts"
       mkdir -p $HOME/scripts                                                                    # custom scripts
-      cp -rsf $custhome/scripts/* $HOME/scripts/
+      cp -rsf $rootc/scripts/* $HOME/scripts/
     ;;
 
     kdb )
-      echo "checking for kdb+"
-      if [ -z `which tmux` ]; then
-        echo "attempting to install kdb+"
-        . $custhome/kdb_install.sh
-      else
-        echo "kdb+ already installed"
-      fi
+      source $rootc/kdb_install.sh
     ;;
 
     tldr )
@@ -110,16 +105,15 @@ for stg in $stgs; do
 
     libevent )
       echo "getting libevent"
-#      wget https://github.com/libevent/libevent/releases/tag/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
-      wget https://github.com/downloads/libevent/libevent/libevent-2.0.19-stable.tar.gz
-      tar -xvzf $custhome/libevent-2.0.19-stable.tar.gz
-      cd $custhome/libevent-2.0.19-stable
+      mkdir -p /tmp/"$USER"dep/
+      wget -O /tmp/"$USER"dep/libevent-2.0.19-stable.tar.gz https://github.com/downloads/libevent/libevent/libevent-2.0.19-stable.tar.gz
+      tar -xvzf /tmp/"$USER"dep/libevent-2.0.19-stable.tar.gz -C /tmp/"$USER"dep/
+      cd /tmp/"$USER"dep/libevent-2.0.19-stable
       ./configure --prefix=$HOME/local
       make
       make install
       cd -
-      rm $custhome/libevent-2.0.19-stable.tar.gz
-      rm -r $custhome/libevent-2.0.19-stable
+      rm -rf /tmp/"$USER"dep/
     ;;
 
     * )

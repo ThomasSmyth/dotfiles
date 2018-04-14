@@ -1,20 +1,33 @@
 #!/usr/bin/env bash
 
-sudolist=$(grep '^sudo:.*$' /etc/group | cut -d: -f4 | tr "," " ")
+echo "checking for kdb+..."
+if [ -z `which q` ]; then
+  echo "attempting to install kdb+"
+else
+  echo "kdb+ already installed"
+  return 0
+fi
 
-echo $sudolist
+sudolist=$(grep '^sudo:.*$' /etc/group | cut -d: -f4 | tr "," " " | grep -x $USER | wc -l)
 
-for u in $sudolist; do
-    if [ $u=$USER ]; then
-        sudo apt-get install gcc-multilib
-        sudo apt install rlwrap
-        sudo apt install unzip
-        if [ -f ~/linuxx86.zip ]; then
-            echo "installing kdb+"
-            unzip ~/linuxx86.zip
-            mv q/ ~/local/bin/
-            export QHOME=~/local/bin/q
-            export PATH=~/local/bin/q/l32/:$PATH
-        fi
-    fi
-done
+if [ ! -f ~/linuxx86.zip ]; then
+  echo "~/linuxx86.zip not available, aborting operation"
+fi
+
+if [ $sudolist -gt 0 ]; then
+  echo "$USER in sudolist, installing necessary libraries"
+  sudo apt-get install gcc-multilib
+  sudo apt install rlwrap
+  sudo apt install unzip
+fi
+
+echo "installing kdb+"
+unzip ~/linuxx86.zip -d /tmp/"$USER"dep
+echo "unzipping to /tmp/"$USER"dep"
+mv /tmp/"$USER"dep/q/ ~/local/bin/
+echo "removing /tmp/"$USER"dep"
+rm -rf /tmp/"$USER"dep
+export QHOME=~/local/bin/q
+export PATH=~/local/bin/q/l32/:$PATH
+
+echo "installation finished"
