@@ -5,12 +5,12 @@ This repo stores and manages the install of various dotfiles and settings files.
 ## First time set up
 
 On a new environment initial set up is handled by the standalone file
-[`onetime.sh`](onetime.sh)
+[`init.sh`](init.sh)
 which can be retrieved directly from the master branch.
 
 ```
-wget https://raw.githubusercontent.com/vibronicshark55/custom-settings/master/onetime.sh
-. onetime.sh
+wget https://raw.githubusercontent.com/vibronicshark55/custom-settings/master/init.sh
+. init.sh
 ```
 
 First time running the script will create SSH keys for use with Github. After
