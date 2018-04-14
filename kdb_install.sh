@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 sudolist=$(grep '^sudo:.*$' /etc/group | cut -d: -f4 | tr "," " ")
 
 echo $sudolist

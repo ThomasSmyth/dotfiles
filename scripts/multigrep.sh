@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [ -z $1 ]; then                                              # check user has passed in search terms
     echo "pass in search terms"
     return 0

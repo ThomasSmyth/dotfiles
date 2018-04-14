@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ## initialise settings
 
 rootc=$(dirname "${BASH_SOURCE}")                                                               # return custom settings directory
@@ -36,8 +38,8 @@ for stg in $stgs; do
 
     bashrc )
       echo "adding to bashrc"                                                                   # add settings
-      if [ ! "source ~/.bash_custom.sh" = "$(tail -n 1 ~/.bashrc)" ]; then
-          echo "source ~/.bash_custom.sh" >> ~/.bashrc                                          # ensure custom settings are picked up by bashrc
+      if [ ! "source ~/.bash_custom" = "$(tail -n 1 ~/.bashrc)" ]; then
+          echo "source ~/.bash_custom" >> ~/.bashrc                                             # ensure custom settings are picked up by bashrc
       fi
       if [ ! -f $HOME/.gitprompt.sh ]; then                                                     # check SSH exists for current host, creating of necessary
         echo "fetching git-prompt.sh"                                                           # get git prompt script
@@ -60,7 +62,7 @@ for stg in $stgs; do
 
     vim )
       echo "adding kdb syntax highlighting"                                                     # vim kdb syntax highlighting
-      if [ -d $HOME/git/qvim ]
+      if [ -d $HOME/git/qvim ]; then
         cp -rsf $HOME/git/qvim/.vim/* $HOME/.vim
       else
         echo "qvim not cloned"

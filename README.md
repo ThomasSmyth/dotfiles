@@ -48,7 +48,7 @@ Will clone the repos listed in [`repos.txt`](repos.txt).
 
 The following files will be softlinked to `$HOME`:
 
-- [`.bash_custom.sh`](dotfiles/.bash_custom.sh) - environment settings
+- [`.bash_custom`](dotfiles/.bash_custom) - environment settings
 - [`.custom/`](dotfiles/.custom) - bash functions and aliases
 - [`.vimrc`](dotfiles/.vimrc) - vim settings
 - [`.vim/ftplugin`](.vim/ftplugin) - language specific plugins
@@ -57,7 +57,7 @@ The following files will be softlinked to `$HOME`:
 
 ### bashrc
 
-Ensures that [`.bash_custom.sh`](dotfiles/.bash_custom.sh) is sourced in
+Ensures that [`.bash_custom`](dotfiles/.bash_custom) is sourced in
 `.bashrc`, and installs
 [`git-prompt.sh`](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
 which is sourced by the custom bash file.

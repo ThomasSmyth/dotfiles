@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # this script should only be used on first install
 
 hn=$(echo $(basename $HOSTNAME) | cut -d"." -f1)
