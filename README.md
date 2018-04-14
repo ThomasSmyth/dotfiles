@@ -9,7 +9,7 @@ On a new environment initial set up is handled by the standalone file
 which can be retrieved directly from the master branch.
 
 ```
-wget https://raw.githubusercontent.com/vibronicshark55/custom-settings/master/init.sh
+wget https://raw.githubusercontent.com/vibronicshark55/dotfiles/master/init.sh
 . init.sh
 ```
 
