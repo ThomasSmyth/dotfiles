@@ -3,9 +3,13 @@
 ## initialise settings
 
 rootc=$(dirname "${BASH_SOURCE}")                                                               # return custom settings directory
-dfiles=$rootc/dotfiles
+if [ $rootc = "." ]; then                                                                       # add protection against copying to current dir
+  rootc=$PWD
+fi
 
+dfiles=$rootc/dotfiles
 stgs=""
+
 for stg in $@; do
     if [ "all" = $stg ]; then
         stg="repos dotfiles bashrc git vim scripts kdb tldr tmux_install"
