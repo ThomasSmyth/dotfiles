@@ -1,4 +1,5 @@
-# aliases
+#!/usr/bin/env bash
+
 alias q='rlwrap -c -r q'
 alias ll='ls -alF'
 alias la='ls -A'

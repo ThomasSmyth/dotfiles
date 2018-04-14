@@ -1,29 +1,30 @@
+#!/usr/bin/env bash
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
 
-# set aliases
-if [ -f ~/.bash_aliases.sh ]; then
-    source ~/.bash_aliases.sh
+# set custom aliases
+if [ -f ~/.custom/bash_aliases.sh ]; then
+    source ~/.custom/bash_aliases.sh
 fi
 
-# set functions
-if [ -f ~/.bash_functions.sh ]; then
-    source ~/.bash_functions.sh
+# set custom functions
+if [ -f ~/.custom/bash_functions.sh ]; then
+    source ~/.custom/bash_functions.sh
 fi
 
-# files to sourse
-source ~/.git-prompt.sh
+# files to source
+source ~/.git-prompt.sh                                                 # show repo status in prompt
 
 # variables
 HISTSIZE=1000
 HISTFILESIZE=2000
-HISTCONTROL=ignoreboth                                          # no duplicate lines in history
+HISTCONTROL=ignoreboth                                                  # no duplicate lines in history
 # export COLUMNS=1000
 # export LINES=20
-# export QINIT=$HOME/.settings.q
 
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then

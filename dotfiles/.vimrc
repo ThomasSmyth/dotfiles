@@ -5,22 +5,28 @@ syntax on                                                               " ensure
 colorscheme darkblue                                                    " colorscheme
 set backspace=2                                                         " make backspace work like most other apps
 set hlsearch                                                            " highlist search result
+set incsearch                                                           " highlight searches as they are types
 set showmatch                                                           " highlight matching brackets
-set wildmenu                                                            " more easily locate files
+set wildmenu                                                            " show graphical file menu when autocompleting
 set wildmode=list:longest,full                                          " extra results
-" let g:clipbrdDefaultReg = '+'                                         " for linux clipboard
-set nohidden                                                            " remove buffer no tab close
-set showcmd                                                             " shows typing as command
+set nohidden                                                            " remove buffer on tab close
+set showcmd                                                             " shows command in bottom bar
 set cursorline                                                          " easily find cursor
+set lazyredraw                                                          " redraw when necessary
 set number numberwidth=1                                                " enable numbers
-set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab             " expand tab to spaces
+set tabstop=4                                                           " number of visual spaces per tab
+set expandtab                                                           " turn tabs to spaces
+set shiftwidth=4                                                        " number of spaces used for indentation
+set softtabstop=4                                                       " number of spaces to insert instead of tab
+set smarttab
 set colorcolumn=97                                                      " set colorcolumn for all files
-" let &colorcolumn="81,".join(range(120,999),",")                       " additional colourcolumns
-" set colorcolumn colour to blue
 highlight colorcolumn ctermbg=4
-" :%!xxd                                                                " hex editor
-" :%!xxd -r                                                             " revert to normal editor
-" :retab " replaces tabs with spaces
+"let g:clipbrdDefaultReg = '+'                                          " for linux clipboard
+"let &colorcolumn="81,".join(range(120,999),",")                        " additional colourcolumns
+"set colorcolumn colour to blue
+":%!xxd                                                                 " hex editor
+":%!xxd -r                                                              " revert to normal editor
+":retab                                                                 " replaces tabs with spaces according to current settings
 
 set foldmethod=marker foldnestmax=10 nofoldenable foldlevel=2           " options for folding markers
 
@@ -102,5 +108,7 @@ augroup JumpCursorOnEdit                                                " restor
             \ endif
 augroup END
 
-set paste                                                               " paste formatting correctly
+"au! BufRead,BufNewFile *.ext setfiletype ext                           " create custom file extension for use with ftplugin
+
+"set paste                                                              " don't retab on paste
 set ruler                                                               " show column number in status bar
