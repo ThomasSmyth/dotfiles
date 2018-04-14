@@ -24,6 +24,7 @@ fi
 echo "installing kdb+"
 unzip ~/linuxx86.zip -d /tmp/"$USER"dep
 echo "unzipping to /tmp/"$USER"dep"
+mkdir -p ~/local/bin/
 mv /tmp/"$USER"dep/q/ ~/local/bin/
 echo "removing /tmp/"$USER"dep"
 rm -rf /tmp/"$USER"dep
