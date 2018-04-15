@@ -127,6 +127,12 @@ nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
+" navigate vim splits with ctrl + arrow keys
+nmap <silent> <ESC>[A :wincmd k<CR>
+nmap <silent> <ESC>[B :wincmd j<CR>
+nmap <silent> <ESC>[D :wincmd h<CR>
+nmap <silent> <ESC>[C :wincmd l<CR>
+
 " map SpaceToComment to ctrl+m
 execute "set <M-m>=\em"
 nnoremap <M-m> :call SpaceToComment(' ')<CR>
