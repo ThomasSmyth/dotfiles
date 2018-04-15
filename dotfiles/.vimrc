@@ -117,10 +117,15 @@ endfun
 " map NumberToggle
 nnoremap <C-n> :call NumberToggle()<CR>
 
-" move up by visual line
+" move up/down by visual line
 nnoremap <Up> gk
-" move down by visual line
 nnoremap <Down> gj
+
+" navigate splits with ctrl + hjkl
+nmap <silent> <C-k> :wincmd k<CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-l> :wincmd l<CR>
 
 " map SpaceToComment to ctrl+m
 execute "set <M-m>=\em"
