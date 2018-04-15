@@ -34,7 +34,7 @@ set foldmethod=marker foldnestmax=10 nofoldenable foldlevel=2           " option
 "" functions
 
 " function to toggle number behaviour
-function! NumberToggle()
+fun! NumberToggle()
   let save_pos = getpos(".")
   if(&relativenumber == 1)
     set norelativenumber
@@ -45,10 +45,10 @@ function! NumberToggle()
     set number
   endif
   call setpos('.', save_pos)
-endfunc
+endfun
 
 " fill with spaces up to comment column
-function! SpaceToComment( str )
+fun! SpaceToComment( str )
     let tw = &colorcolumn                                               " set tw to the desired comment column
     if tw==0 | let tw = 81 | endif
     " strip trailing spaces first
@@ -61,7 +61,14 @@ function! SpaceToComment( str )
         .s/$/\=(' '.repeat(a:str, reps))/
         normal $
     endif
-endfunction
+endfun
+
+fun! StripTrailingWhitespace()
+  if &ft =~ 'markdown'                                                  " Don't strip on these filetypes
+    return
+  endif
+  if ! &bin | silent! %s/\s\+$//ge | endif                              " strip whitespace
+endfun
 
 
 "" key mapping
@@ -81,7 +88,7 @@ nnoremap <M-m> :call SpaceToComment(' ')<CR>
 
 "" auto commands
 
-autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif     " auto remove trailing whitespace
+autocmd BufRead,BufWrite * call StripTrailingWhitespace()               " auto remove trailing whitespace
 
 augroup JumpCursorOnEdit                                                " restore cursor position on reopen
    au!

@@ -7,13 +7,13 @@ case $- in
 esac
 
 # set custom aliases
-if [ -f ~/.custom/bash_aliases.sh ]; then
-    source ~/.custom/bash_aliases.sh
+if [ -f ~/.custom/bash_aliases ]; then
+    source ~/.custom/bash_aliases
 fi
 
 # set custom functions
-if [ -f ~/.custom/bash_functions.sh ]; then
-    source ~/.custom/bash_functions.sh
+if [ -f ~/.custom/bash_functions ]; then
+    source ~/.custom/bash_functions
 fi
 
 # files to source
