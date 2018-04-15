@@ -28,6 +28,7 @@ name of the settings to install, or all. The following options are available:
 - [dotfiles](#dotfiles)
 - [git](#git)\*
 - [vim](#vim)
+- [vundle](#vundle)
 - [scripts](#scripts)
 - [kdb](#kdb)
 - [tldr](#tldr)
@@ -70,6 +71,11 @@ Adds global git user and email.
 
 Adds [kdb syntax highlighting](https://github.com/patmok/qvim) from
 [patmok](https://github.com/patmok).
+
+### vundle
+
+Adds [Vundle](https://github.com/VundleVim/Vundle.vim) a plugin manager for
+vim.
 
 ### scripts
 
