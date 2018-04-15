@@ -124,14 +124,14 @@ nnoremap <Down> gj
 " integrate with tmux navigation
 let g:tmux_navigator_no_mappings = 1
 
-execute "set <M-k>=\ek"
-execute "set <M-j>=\ej"
-execute "set <M-h>=\eh"
-execute "set <M-l>=\el"
-nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <M-h> :TmuxNavigateRight<cr>
-nnoremap <silent> <M-l> :TmuxNavigateLeft<cr>
+execute "set <A-k>=\ek"
+execute "set <A-j>=\ej"
+execute "set <A-h>=\eh"
+execute "set <A-l>=\el"
+nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <A-h> :TmuxNavigateRight<cr>
+nnoremap <silent> <A-l> :TmuxNavigateLeft<cr>
 " nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 " " navigate splits with ctrl + hjkl
