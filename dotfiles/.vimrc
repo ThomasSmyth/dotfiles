@@ -1,6 +1,43 @@
-set nocompatible                                                        " sanely reset options on vimrc re-source
-filetype plugin on                                                      " allow loading from ftplugin
-syntax on                                                               " ensure syntax highllighting is enabled
+""""""""""
+" Vundle "
+""""""""""
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" custom plugins
+" None yet
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+"filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
+""""""""""""
+" defaults "
+""""""""""""
+
+syntax on                                                               " ensure syntax highlighting is enabled
 
 colorscheme darkblue                                                    " colorscheme
 set backspace=2                                                         " make backspace work like most other apps
@@ -31,7 +68,9 @@ highlight colorcolumn ctermbg=4
 set foldmethod=marker foldnestmax=10 nofoldenable foldlevel=2           " options for folding markers
 
 
-"" functions
+"""""""""""""
+" functions "
+"""""""""""""
 
 " function to toggle number behaviour
 fun! NumberToggle()
@@ -71,7 +110,9 @@ fun! StripTrailingWhitespace()
 endfun
 
 
-"" key mapping
+"""""""""""""""
+" key mapping "
+"""""""""""""""
 
 " map NumberToggle
 nnoremap <C-n> :call NumberToggle()<CR>
@@ -86,11 +127,18 @@ execute "set <M-m>=\em"
 nnoremap <M-m> :call SpaceToComment(' ')<CR>
 
 
-"" auto commands
+"""""""""""""""""
+" auto commands "
+"""""""""""""""""
 
+" auto remove trailing whitespace
 autocmd BufRead,BufWrite * call StripTrailingWhitespace()               " auto remove trailing whitespace
 
-augroup JumpCursorOnEdit                                                " restore cursor position on reopen
+" disable automatic comment insertion
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" restore cursor position on reopen
+augroup JumpCursorOnEdit
    au!
    autocmd BufReadPost *
             \ if expand("<afile>:p:h") !=? $TEMP |
@@ -114,8 +162,6 @@ augroup JumpCursorOnEdit                                                " restor
             \   unlet b:doopenfold |
             \ endif
 augroup END
-
-"au! BufRead,BufNewFile *.ext setfiletype ext                           " create custom file extension for use with ftplugin
 
 "set paste                                                              " don't retab on paste
 set ruler                                                               " show column number in status bar
