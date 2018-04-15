@@ -121,19 +121,42 @@ nnoremap <C-n> :call NumberToggle()<CR>
 nnoremap <Up> gk
 nnoremap <Down> gj
 
-" navigate splits with ctrl + hjkl
-nmap <silent> <C-k> :wincmd k<CR>
-nmap <silent> <C-j> :wincmd j<CR>
-nmap <silent> <C-h> :wincmd h<CR>
-nmap <silent> <C-l> :wincmd l<CR>
+" integrate with tmux navigation
+let g:tmux_navigator_no_mappings = 1
 
+execute "set <M-k>=\ek"
+execute "set <M-j>=\ej"
+execute "set <M-h>=\eh"
+execute "set <M-l>=\el"
+nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <M-h> :TmuxNavigateRight<cr>
+nnoremap <silent> <M-l> :TmuxNavigateLeft<cr>
+" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+
+" " navigate splits with ctrl + hjkl
+" nmap <silent> <C-k> :wincmd k<CR>
+" nmap <silent> <C-j> :wincmd j<CR>
+" nmap <silent> <C-h> :wincmd h<CR>
+" nmap <silent> <C-l> :wincmd l<CR>
+"
 " navigate vim splits with ctrl + arrow keys
-nmap <silent> <ESC>[A :wincmd k<CR>
-nmap <silent> <ESC>[B :wincmd j<CR>
-nmap <silent> <ESC>[D :wincmd h<CR>
-nmap <silent> <ESC>[C :wincmd l<CR>
+" nmap <silent> <ESC>[A :wincmd k<CR>
+" nmap <silent> <ESC>[B :wincmd j<CR>
+" nmap <silent> <ESC>[D :wincmd h<CR>
+" nmap <silent> <ESC>[C :wincmd l<CR>
+"
+" " alt + hjkl navigation
+" execute "set <M-k>=\ek"
+" execute "set <M-j>=\ej"
+" execute "set <M-h>=\eh"
+" execute "set <M-l>=\el"
+" nmap <silent> <M-k> :wincmd k<CR>
+" nmap <silent> <M-j> :wincmd j<CR>
+" nmap <silent> <M-h> :wincmd h<CR>
+" nmap <silent> <M-l> :wincmd l<CR>
 
-" map SpaceToComment to ctrl+m
+" map SpaceToComment to alt+m
 execute "set <M-m>=\em"
 nnoremap <M-m> :call SpaceToComment(' ')<CR>
 
