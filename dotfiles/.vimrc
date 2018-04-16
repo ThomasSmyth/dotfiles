@@ -128,33 +128,12 @@ execute "set <A-k>=\ek"
 execute "set <A-j>=\ej"
 execute "set <A-h>=\eh"
 execute "set <A-l>=\el"
+execute "set <A-\\>=\e\\"
 nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <A-h> :TmuxNavigateRight<cr>
 nnoremap <silent> <A-l> :TmuxNavigateLeft<cr>
-" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
-
-" " navigate splits with ctrl + hjkl
-" nmap <silent> <C-k> :wincmd k<CR>
-" nmap <silent> <C-j> :wincmd j<CR>
-" nmap <silent> <C-h> :wincmd h<CR>
-" nmap <silent> <C-l> :wincmd l<CR>
-"
-" navigate vim splits with ctrl + arrow keys
-" nmap <silent> <ESC>[A :wincmd k<CR>
-" nmap <silent> <ESC>[B :wincmd j<CR>
-" nmap <silent> <ESC>[D :wincmd h<CR>
-" nmap <silent> <ESC>[C :wincmd l<CR>
-"
-" " alt + hjkl navigation
-" execute "set <M-k>=\ek"
-" execute "set <M-j>=\ej"
-" execute "set <M-h>=\eh"
-" execute "set <M-l>=\el"
-" nmap <silent> <M-k> :wincmd k<CR>
-" nmap <silent> <M-j> :wincmd j<CR>
-" nmap <silent> <M-h> :wincmd h<CR>
-" nmap <silent> <M-l> :wincmd l<CR>
+nnoremap <silent> <A-\> :TmuxNavigatePrevious<cr>
 
 " map SpaceToComment to alt+m
 execute "set <M-m>=\em"
