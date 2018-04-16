@@ -15,7 +15,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " custom plugins
-" None yet
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -117,12 +117,25 @@ endfun
 " map NumberToggle
 nnoremap <C-n> :call NumberToggle()<CR>
 
-" move up by visual line
+" move up/down by visual line
 nnoremap <Up> gk
-" move down by visual line
 nnoremap <Down> gj
 
-" map SpaceToComment to ctrl+m
+" integrate with tmux navigation
+let g:tmux_navigator_no_mappings = 1
+
+execute "set <A-k>=\ek"
+execute "set <A-j>=\ej"
+execute "set <A-h>=\eh"
+execute "set <A-l>=\el"
+execute "set <A-\\>=\e\\"
+nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <A-h> :TmuxNavigateRight<cr>
+nnoremap <silent> <A-l> :TmuxNavigateLeft<cr>
+nnoremap <silent> <A-\> :TmuxNavigatePrevious<cr>
+
+" map SpaceToComment to alt+m
 execute "set <M-m>=\em"
 nnoremap <M-m> :call SpaceToComment(' ')<CR>
 

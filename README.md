@@ -77,6 +77,10 @@ Adds [kdb syntax highlighting](https://github.com/patmok/qvim) from
 Adds [Vundle](https://github.com/VundleVim/Vundle.vim) a plugin manager for
 vim.
 
+Current plugins:
+- [tmux-vim-navigator](https://github.com/christoomey/vim-tmux-navigator) - allows
+ for alt+arrow key switching between vim and tmux.
+
 ### scripts
 
 Adds:
