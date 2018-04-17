@@ -51,11 +51,10 @@ do
 key="$1"
 
 case $key in
-  -a|--archive)
-    archive="$2"
-    echo archive status set to $archive
+  -a|--archive)                                                         # if passed enable archiving
+    archive=1
+    echo archiving enabled
     shift                                                               # past argument
-    shift                                                               # past value
   ;;
   *)                                                                    # unknown option
     POSITIONAL+=("$1")                                                  # save it in an array for later
@@ -67,6 +66,11 @@ done
 ################
 # installation #
 ################
+
+if [ 0 -eq ${#POSITIONAL[@]} ]; then
+  echo no arguments passed, exiting...
+  return 0
+fi
 
 for arg in ${POSITIONAL[@]}; do
   if [ "all" = $arg ]; then
