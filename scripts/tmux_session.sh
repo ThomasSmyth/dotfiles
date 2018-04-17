@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-#!/bin/sh
-
-# tmux start-server
+# tmux start-server                                                     # start server, if not already running
 
 # start new session and split resulting window into 2 panes
 tmux new-session -d -s dev -n main \; \
@@ -26,4 +24,4 @@ tmux new-window -t dev:2 \; \
 tmux select-window -t dev:0
 tmux attach-session -t dev
 
-# tmux kill-server
+# tmux kill-server                                                      # ensure server is dead
