@@ -1,22 +1,88 @@
 #!/usr/bin/env bash
 
-## initialise settings
+############
+# settings #
+############
 
-rootc=$PWD/$(dirname "${BASH_SOURCE}")                                  # return custom settings directory
-dfiles=$rootc/dotfiles
-stgs=""
+# archive settings
+archive=0                                                               # archive if set to 1
+archdir=~/.archive                                                      # archive directory
+dotdir=$HOME                                                            # install location for dotfiles
 
-for stg in $@; do
-    if [ "all" = $stg ]; then
-        stg="repos dotfiles bashrc vim vundle scripts kdb tldr tmux_install"
-    fi
+# other
+arglist=""                                                              # ensure arguments are cleared in case of failure
 
-    stgs="$stgs $stg"
+# dotfile locations
+rootc=$PWD/$(dirname "${BASH_SOURCE}")                                  # full path dotfiles repo
+dfiles=$rootc/dotfiles                                                  # full path to dotfiles sub directory
+
+#######################
+# archiving functions #
+#######################
+recurseFiles () {                                                       # return files form all sub directories
+  dir=$(echo "$1" | sed 's|\/*$||g')                                    # trim trailing forward slash
+  find $dir -type f | sed "s|^$dir\/||g"                                # return file paths of dotfiles
+ }
+
+archiveFile() {                                                         # archive file if it exists
+  oldFile=$dotdir/$1
+  if [ -f $oldFile ]; then
+    echo "archiving $oldFile"
+    mkdir -p $archdir/$(dirname $1)
+    cp $oldFile $archdir/$1
+  fi
+ }
+
+archiveAllFiles() {                                                     # archive all dotfiles
+  newFiles=($(recurseFiles $dfiles))                                    # store files to install as array
+
+  for file in ${newFiles[@]}; do                                        # iterate over dotfiles
+    archiveFile $file                                                   # archive dotfile to $archdir
+  done
+ }
+
+########################
+# command line parsing #
+########################
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+  -a|--archive)                                                         # if passed enable archiving
+    archive=1
+    echo archiving enabled
+    shift                                                               # past argument
+  ;;
+  *)                                                                    # unknown option
+    POSITIONAL+=("$1")                                                  # save it in an array for later
+    shift                                                               # past argument
+  ;;
+esac
 done
 
-for stg in $stgs; do
+################
+# installation #
+################
 
-  case $stg in
+if [ 0 -eq ${#POSITIONAL[@]} ]; then
+  echo no arguments passed, exiting...
+  return 0
+fi
+
+for arg in ${POSITIONAL[@]}; do
+  if [ "all" = $arg ]; then
+    arg="repos dotfiles bashrc vim vundle scripts kdb tldr tmux_install"
+  fi
+
+  arglist="$arglist $arg"
+done
+
+for arg in $arglist; do
+
+  case $arg in
 
     repos )
       echo "cloning repos"                                              # clone necessary repos
@@ -32,16 +98,23 @@ for stg in $stgs; do
     ;;
 
     dotfiles )
+      if [ 1 -ne $archive ]; then                                       # archive dotfiles if enabled
+        echo "archiving not enabled"
+      else
+        echo "archiving enabled"
+        archiveAllFiles
+      fi
+
       echo "adding dotfiles"                                            # add dotfiles
       cp -rsf $dfiles/. $HOME                                           # symlink dotfiles to homedir
     ;;
 
     bashrc )
-      echo "adding to bashrc"                                           # add settings
       if [ ! "source ~/.bash_custom" = "$(tail -n 1 ~/.bashrc)" ]; then
-          echo "source ~/.bash_custom" >> ~/.bashrc                     # ensure custom settings are picked up by bashrc
+        echo "adding to bashrc"                                         # add settings
+        echo "source ~/.bash_custom" >> ~/.bashrc                       # ensure custom settings are picked up by bashrc
       fi
-      if [ ! -f $HOME/.gitprompt.sh ]; then                             # check SSH exists for current host, creating of necessary
+      if [ ! -f $HOME/.git-prompt.sh ]; then                            # check for existence of git-prompt.sh
         echo "fetching git-prompt.sh"                                   # get git prompt script
         wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
       fi
@@ -124,14 +197,18 @@ for stg in $stgs; do
     ;;
 
     * )
-      echo "Invalid option: $stg"
+      echo "Invalid option: $arg"
     ;;
 
   esac
 
 done
 
-stgs=""
+##############
+# post steps #
+##############
+
+arglist=""
 
 echo "sourcing $HOME/.bashrc"                                           # wrapping up
 source $HOME/.bashrc

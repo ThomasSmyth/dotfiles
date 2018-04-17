@@ -1,4 +1,4 @@
-# Custom Settings
+# Dotfiles
 
 This repo stores and manages the install of various dotfiles and settings files.
 
