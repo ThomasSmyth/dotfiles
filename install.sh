@@ -41,9 +41,9 @@ archiveAllFiles() {                                                     # archiv
   done
  }
 
-##################################
-# command line parsing functions #
-##################################
+########################
+# command line parsing #
+########################
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -58,7 +58,7 @@ case $key in
     shift                                                               # past value
   ;;
   *)                                                                    # unknown option
-    POSITIONAL+=("$1") # save it in an array for later
+    POSITIONAL+=("$1")                                                  # save it in an array for later
     shift                                                               # past argument
   ;;
 esac
@@ -106,11 +106,11 @@ for arg in $arglist; do
     ;;
 
     bashrc )
-      echo "adding to bashrc"                                           # add settings
       if [ ! "source ~/.bash_custom" = "$(tail -n 1 ~/.bashrc)" ]; then
-          echo "source ~/.bash_custom" >> ~/.bashrc                     # ensure custom settings are picked up by bashrc
+        echo "adding to bashrc"                                         # add settings
+        echo "source ~/.bash_custom" >> ~/.bashrc                       # ensure custom settings are picked up by bashrc
       fi
-      if [ ! -f $HOME/.gitprompt.sh ]; then                             # check SSH exists for current host, creating of necessary
+      if [ ! -f $HOME/.git-prompt.sh ]; then                            # check for existence of git-prompt.sh
         echo "fetching git-prompt.sh"                                   # get git prompt script
         wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
       fi
