@@ -6,12 +6,16 @@ rootc=$PWD/$(dirname "${BASH_SOURCE}")                                  # return
 dfiles=$rootc/dotfiles
 stgs=""
 
-for stg in $@; do
-    if [ "all" = $stg ]; then
-        stg="repos dotfiles bashrc vim vundle scripts kdb tldr tmux_install"
-    fi
+# install location
+archdir=~/.archive
+dotdir=$HOME
 
-    stgs="$stgs $stg"
+for stg in $@; do
+  if [ "all" = $stg ]; then
+    stg="repos dotfiles bashrc vim vundle scripts kdb tldr tmux_install"
+  fi
+
+  stgs="$stgs $stg"
 done
 
 for stg in $stgs; do
