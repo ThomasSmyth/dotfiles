@@ -5,12 +5,12 @@
 ############
 
 # archive settings
-archive=1                                                               # archive if set to 1
+archive=0                                                               # archive if set to 1
 archdir=~/.archive                                                      # archive directory
 dotdir=$HOME                                                            # install location for dotfiles
 
 # other
-stgs=""
+arglist=""                                                              # ensure arguments are cleared in case of failure
 
 # dotfile locations
 rootc=$PWD/$(dirname "${BASH_SOURCE}")                                  # full path dotfiles repo
@@ -41,21 +41,44 @@ archiveAllFiles() {                                                     # archiv
   done
  }
 
+##################################
+# command line parsing functions #
+##################################
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+  -a|--archive)
+    archive="$2"
+    echo archive status set to $archive
+    shift                                                               # past argument
+    shift                                                               # past value
+  ;;
+  *)                                                                    # unknown option
+    POSITIONAL+=("$1") # save it in an array for later
+    shift                                                               # past argument
+  ;;
+esac
+done
+
 ################
 # installation #
 ################
 
-for stg in $@; do
-  if [ "all" = $stg ]; then
-    stg="repos dotfiles bashrc vim vundle scripts kdb tldr tmux_install"
+for arg in ${POSITIONAL[@]}; do
+  if [ "all" = $arg ]; then
+    arg="repos dotfiles bashrc vim vundle scripts kdb tldr tmux_install"
   fi
 
-  stgs="$stgs $stg"
+  arglist="$arglist $arg"
 done
 
-for stg in $stgs; do
+for arg in $arglist; do
 
-  case $stg in
+  case $arg in
 
     repos )
       echo "cloning repos"                                              # clone necessary repos
@@ -170,7 +193,7 @@ for stg in $stgs; do
     ;;
 
     * )
-      echo "Invalid option: $stg"
+      echo "Invalid option: $arg"
     ;;
 
   esac
@@ -181,7 +204,7 @@ done
 # post steps #
 ##############
 
-stgs=""
+arglist=""
 
 echo "sourcing $HOME/.bashrc"                                           # wrapping up
 source $HOME/.bashrc
