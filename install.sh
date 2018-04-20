@@ -135,8 +135,8 @@ for arg in $arglist; do
 
     vim )
       echo "adding kdb syntax highlighting"                             # vim kdb syntax highlighting
-      if [ -d $HOME/git/qvim ]; then
-        cp -rsf $HOME/git/qvim/.vim/* $HOME/.vim
+      if [ -d $HOME/git/kdbvim ]; then
+        cp -rsf $HOME/git/kdbvim/.vim/* $HOME/.vim
       else
         echo "qvim not cloned"
       fi

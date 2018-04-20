@@ -21,7 +21,15 @@ does not already exist.
 
 The addition of dotfiles and other settings is handled by [`install.sh`](install.sh)
 which is available upon cloning this repo. This script must then be passed then
-name of the settings to install, or all. The following options are available:
+name of the settings to install, or all. it is recommended that users use the
+`-a` or `--archive` flag on initial install to ensure previous dotfiles are
+preserved.
+
+```
+. install.sh -a all
+```
+
+The following options are available:
 
 - [repos](#repos)
 - [bashrc](#bashrc)
