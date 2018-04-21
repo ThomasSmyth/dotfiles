@@ -25,6 +25,7 @@ dfiles=$rootc/dotfiles                                                  # full p
 #############
 
 copyFiles () {
+  echo copying files $1 to $2
   if [ 1 -eq $hardcopy ]; then                                          # hardcopy files if enabled
     cp -rf $1 $2
   else
@@ -79,6 +80,7 @@ case $key in
     echo cloning location set to $gitdir
     shift
     shift
+  ;;
   *)                                                                    # unknown option
     POSITIONAL+=("$1")                                                  # save it in an array for later
     shift                                                               # past argument
@@ -159,9 +161,9 @@ for arg in $arglist; do
     vim )
       echo "adding kdb syntax highlighting"                             # vim kdb syntax highlighting
       if [ -d $gitdir/kdbvim ]; then
-        copyFiles $gitdir/kdbvim/.vim/* $dotdir/.vim
+        copyFiles $gitdir/kdbvim/.vim/. $dotdir/.vim
       else
-        echo "qvim not cloned"
+        echo "kdbvim not cloned"
       fi
     ;;
 
