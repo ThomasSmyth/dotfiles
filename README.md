@@ -10,7 +10,7 @@ which can be retrieved directly from the master branch.
 
 ```
 wget https://raw.githubusercontent.com/vibronicshark55/dotfiles/master/init.sh
-. init.sh
+sh init.sh
 ```
 
 First time running the script will create SSH keys for use with Github. After
@@ -26,7 +26,7 @@ name of the settings to install, or all. it is recommended that users use the
 preserved.
 
 ```
-. install.sh -a all
+sh install.sh -a all
 ```
 
 The following options are available:
