@@ -102,11 +102,17 @@ fun! SpaceToComment( str )
     endif
 endfun
 
+" strip whitespace
+fun! StripWS()
+  if ! &bin | silent! %s/\s\+$//ge | endif
+endfun
+
+" strip whitespace with restrictions
 fun! StripTrailingWhitespace()
-  if &ft =~ 'markdown'                                                  " Don't strip on these filetypes
+  if &ft =~ 'markdown'
     return
   endif
-  if ! &bin | silent! %s/\s\+$//ge | endif                              " strip whitespace
+  call StripWS
 endfun
 
 
@@ -145,7 +151,7 @@ nnoremap <M-m> :call SpaceToComment(' ')<CR>
 """""""""""""""""
 
 " auto remove trailing whitespace
-autocmd BufRead,BufWrite * call StripTrailingWhitespace()               " auto remove trailing whitespace
+autocmd BufRead,BufWrite * call StripTrailingWhitespace()
 
 " disable automatic comment insertion
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
