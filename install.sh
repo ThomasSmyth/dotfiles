@@ -144,7 +144,7 @@ for arg in $arglist; do
 
     vundle )
       echo "cloning Vundle"
-      if [ -d $HOME/git/qvim ]; then
+      if [ -d $HOME/.vim/bundle/Vundle.vim ]; then
         git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
         vim +PluginInstall +qall                                        # ensure plugins are installed
         echo "Vundle cloned"
