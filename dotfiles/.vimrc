@@ -112,7 +112,7 @@ fun! StripTrailingWhitespace()
   if &ft =~ 'markdown'
     return
   endif
-  call StripWS
+  call StripWS()
 endfun
 
 
