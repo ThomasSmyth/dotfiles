@@ -11,6 +11,7 @@ dotdir=$HOME                                                            # instal
 
 # other
 arglist=""                                                              # ensure arguments are cleared in case of failure
+vimsyntax=yaq-vim
 
 # dotfile locations
 rootc=$PWD/$(dirname "${BASH_SOURCE}")                                  # full path dotfiles repo
@@ -134,11 +135,11 @@ for arg in $arglist; do
     ;;
 
     vim )
-      echo "adding kdb syntax highlighting"                             # vim kdb syntax highlighting
-      if [ -d $HOME/git/kdbvim ]; then
-        cp -rsf $HOME/git/kdbvim/.vim/* $HOME/.vim
+      echo "adding kdb syntax highlighting from $vimsyntax"             # vim kdb syntax highlighting
+      if [ -d $HOME/git/$vimsyntax ]; then
+        cp -rsf $HOME/git/${vimsyntax}/.vim/* $HOME/.vim
       else
-        echo "qvim not cloned"
+        echo "$vimsyntax not cloned"
       fi
     ;;
 
