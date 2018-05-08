@@ -15,6 +15,7 @@ hardcopy=0                                                              # hard c
 gitdir=$HOME/git                                                        # location of cloned repos
 localdir=$HOME/local                                                    # binaries
 scriptsdir=$HOME/scripts                                                # local scripts
+vimsyntax=yaq-vim
 
 # dotfile locations
 rootc=$PWD/$(dirname "${BASH_SOURCE}")                                  # full path dotfiles repo
@@ -159,18 +160,18 @@ for arg in $arglist; do
     ;;
 
     vim )
-      echo "adding kdb syntax highlighting"                             # vim kdb syntax highlighting
-      if [ -d $gitdir/kdbvim ]; then
-        copyFiles $gitdir/kdbvim/.vim/. $dotdir/.vim
+      echo "adding kdb syntax highlighting from $vimsyntax"             # vim kdb syntax highlighting
+      if [ -d $HOME/git/$vimsyntax ]; then
+        cp -rsf $HOME/git/${vimsyntax}/.vim/* $HOME/.vim
       else
-        echo "kdbvim not cloned"
+        echo "$vimsyntax not cloned"
       fi
     ;;
 
     vundle )
       echo "cloning Vundle"
-      if [ -d $gitdir/kdbvim ]; then
-        git clone https://github.com/VundleVim/Vundle.vim.git $dotdir/.vim/bundle/Vundle.vim
+      if [ ! -d $HOME/.vim/bundle/Vundle.vim ]; then
+        git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
         vim +PluginInstall +qall                                        # ensure plugins are installed
         echo "Vundle cloned"
       else
