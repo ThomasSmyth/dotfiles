@@ -43,6 +43,7 @@ The following options are available:
 - [tmux_install](#tmux_install)\*
 
 > ^ All repos can be installed using `-r` flag
+
 > \* Not included in all
 
 ### Optional flags

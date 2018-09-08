@@ -117,13 +117,19 @@ for arg in $arglist; do
 
     repos)
       echo "cloning repos"                                              # clone necessary repos
-      while read line; do
-        gf=$(basename $line)                                            # return *.git file
+      while IFS="," read -r repo opt; do
+        gf=$(basename $repo)                                            # return *.git file
         gn=$gitdir/${gf%$".git"}                                        # drop .git to return directory name
-        if [ ! -d $gn ]; then                                           # check if repo has been cloned
-          echo "cloning $gf"
-          mkdir -p $gn                                                  # create directory to store repo
-          git clone --recurse-submodules $line $gn                      # clone repo
+        if [[ "$opt" == "default" ]] || [[ 1 -eq $repofull ]]; then     # clone repo if it is defined as default, or all repo flag passed
+          if [ ! -d $gn ]; then                                         # check if repo has been cloned
+            echo "cloning $gf"
+            mkdir -p $gn                                                # create directory to store repo
+            git clone --recurse-submodules $repo $gn                    # clone repo
+          else
+            echo "$gf already exists, skipping..."
+          fi
+        else
+          echo "default repos only, skipping $gf..."
         fi
       done < $rootc/repos.csv                                           # file contains list of repos to clone
       ;;
