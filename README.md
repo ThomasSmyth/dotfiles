@@ -13,9 +13,9 @@ wget https://raw.githubusercontent.com/vibronicshark55/dotfiles/master/init.sh
 sh init.sh
 ```
 
-First time running the script will create SSH keys for use with Github. After
-the keys are created further running the script will clone this repo, if it
-does not already exist.
+First time running the script will create SSH keys for use with repo hosting
+services. After the keys are created further running the script will clone this
+repo, if it does not already exist.
 
 ## Add dotfiles
 
@@ -31,7 +31,7 @@ sh install.sh -a all
 
 The following options are available:
 
-- [repos](#repos)
+- [repos](#repos)^
 - [bashrc](#bashrc)
 - [dotfiles](#dotfiles)
 - [git](#git)\*
@@ -42,7 +42,16 @@ The following options are available:
 - [tldr](#tldr)\*
 - [tmux_install](#tmux_install)\*
 
+> ^ All repos can be installed using `-r` flag
+
 > \* Not included in all
+
+### Optional flags
+
+* `-a` or `--archive` - archive existing dotfiles
+* `-h` or `--hard-copy` - do not create symlinks to dot files
+* `-g` or `--git-directory` - specify custom git directory
+* `-r` or `--repo-full` - install all repositories
 
 ## Available Settings
 
@@ -50,7 +59,8 @@ The following are details of the available settings.
 
 ### repos
 
-Will clone the repos listed in [`repos.txt`](repos.txt).
+Will clone the default repos listed in [`repos.csv`](repos.csv) unless `-r` flag
+is passed, in which case all will be cloned.
 
 ### dotfiles
 
@@ -109,8 +119,3 @@ Retrieves [tldr](https://github.com/raylee/tldr) from
 
 Will install [tmux](https://github.com/tmux/tmux) if it does not already
 exist on the host.
-
-### libevent
-
-Installs [libevent](https://github.com/libevent/libevent/releases/tag/release-2.0.19-stable),
-can't remember why this was needed.

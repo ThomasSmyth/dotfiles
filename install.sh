@@ -70,18 +70,23 @@ case $key in
     archive=1
     echo archiving enabled
     shift                                                               # past argument
-  ;;
+    ;;
   -h|--hard-copy)
     hardcopy=1
     echo hard-copying enabled
     shift
-  ;;
+    ;;
   -g|--git-directory)
     gitdir="$2"
     echo cloning location set to $gitdir
     shift
     shift
-  ;;
+    ;;
+  -r|--repo-full)
+    repofull=1
+    echo repo flag passed, all repos will be cloned
+    shift
+    ;;
   *)                                                                    # unknown option
     POSITIONAL+=("$1")                                                  # save it in an array for later
     shift                                                               # past argument
@@ -110,20 +115,26 @@ for arg in $arglist; do
 
   case $arg in
 
-    repos )
+    repos)
       echo "cloning repos"                                              # clone necessary repos
-      while read line; do
-        gf=$(basename $line)                                            # return *.git file
+      while IFS="," read -r repo opt; do
+        gf=$(basename $repo)                                            # return *.git file
         gn=$gitdir/${gf%$".git"}                                        # drop .git to return directory name
-        if [ ! -d $gn ]; then                                           # check if repo has been cloned
-          echo "cloning $gf"
-          mkdir -p $gn                                                  # create directory to store repo
-          git clone --recurse-submodules $line $gn                      # clone repo
+        if [[ "$opt" == "default" ]] || [[ 1 -eq $repofull ]]; then     # clone repo if it is defined as default, or all repo flag passed
+          if [ ! -d $gn ]; then                                         # check if repo has been cloned
+            echo "cloning $gf"
+            mkdir -p $gn                                                # create directory to store repo
+            git clone --recurse-submodules $repo $gn                    # clone repo
+          else
+            echo "$gf already exists, skipping..."
+          fi
+        else
+          echo "default repos only, skipping $gf..."
         fi
-      done < $rootc/repos.txt                                           # file contains list of repos to clone
+      done < $rootc/repos.csv                                           # file contains list of repos to clone
       ;;
 
-    dotfiles )
+    dotfiles)
       if [ 1 -ne $archive ]; then                                       # archive dotfiles if enabled
         echo "archiving not enabled"
       else
@@ -135,7 +146,7 @@ for arg in $arglist; do
       copyFiles $dfiles/. $dotdir                                       # copy dotfiles to homedir
       ;;
 
-    bashrc )
+    bashrc)
       if [ ! "source $dotdir/.bash_custom" = "$(tail -n 1 ~/.bashrc)" ]; then
         echo "adding to bashrc"                                         # add settings
         echo "source $dotdir/.bash_custom" >> ~/.bashrc                 # ensure custom settings are picked up by bashrc
@@ -147,7 +158,7 @@ for arg in $arglist; do
 
       ;;
 
-    git )
+    git)
       echo "input git name"                                             # set git name
       read gitname
       echo "setting name to $gitname"
@@ -159,7 +170,7 @@ for arg in $arglist; do
       git config --global user.email "$gitemail"
       ;;
 
-    vim )
+    vim)
       echo "adding kdb syntax highlighting from $vimsyntax"             # vim kdb syntax highlighting
       if [ -d $HOME/git/$vimsyntax ]; then
         cp -rsf $HOME/git/${vimsyntax}/.vim/* $HOME/.vim
@@ -168,7 +179,7 @@ for arg in $arglist; do
       fi
       ;;
 
-    vundle )
+    vundle)
       echo "cloning Vundle"
       if [ ! -d $HOME/.vim/bundle/Vundle.vim ]; then
         git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
@@ -179,17 +190,17 @@ for arg in $arglist; do
       fi
       ;;
 
-    scripts )
+    scripts)
       echo "copying scripts"
       mkdir -p $scriptsdir                                              # custom scripts
       copyFiles $rootc/scripts/* $scriptsdir
       ;;
 
-    kdb )
+    kdb)
       source $rootc/kdb_install.sh
       ;;
 
-    tldr )
+    tldr)
       if [ ! -f $localdir/bin/tldr ]; then                              # check if tld has been installed
         echo adding tldr                                                # install tldr
         mkdir -p $localdir/bin
@@ -198,7 +209,7 @@ for arg in $arglist; do
       fi
       ;;
 
-    tmux_install )
+    tmux_install)
       if [ -z `which tmux` ]; then
         echo installing tmux
         cd $gitdir/tmux
@@ -209,7 +220,7 @@ for arg in $arglist; do
       fi
       ;;
 
-    * )
+    *)
       echo "Invalid option: $arg"
       ;;
 
