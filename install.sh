@@ -6,20 +6,34 @@
 
 # archive settings
 archive=0                                                               # archive if set to 1
-archdir=~/.archive                                                      # archive directory
+archdir=$HOME/.archive                                                  # archive directory
 dotdir=$HOME                                                            # install location for dotfiles
 
 # other
 arglist=""                                                              # ensure arguments are cleared in case of failure
+hardcopy=0                                                              # hard copy if set to 1
+gitdir=$HOME/git                                                        # location of cloned repos
+localdir=$HOME/local                                                    # binaries
+scriptsdir=$HOME/scripts                                                # local scripts
 vimsyntax=yaq-vim
 
 # dotfile locations
 rootc=$PWD/$(dirname "${BASH_SOURCE}")                                  # full path dotfiles repo
 dfiles=$rootc/dotfiles                                                  # full path to dotfiles sub directory
 
-#######################
-# archiving functions #
-#######################
+#############
+# functions #
+#############
+
+copyFiles () {
+  echo copying files $1 to $2
+  if [ 1 -eq $hardcopy ]; then                                          # hardcopy files if enabled
+    cp -rf $1 $2
+  else
+    cp -rsf $1 $2
+  fi
+ }
+
 recurseFiles () {                                                       # return files form all sub directories
   dir=$(echo "$1" | sed 's|\/*$||g')                                    # trim trailing forward slash
   find $dir -type f | sed "s|^$dir\/||g"                                # return file paths of dotfiles
@@ -57,6 +71,17 @@ case $key in
     echo archiving enabled
     shift                                                               # past argument
   ;;
+  -h|--hard-copy)
+    hardcopy=1
+    echo hard-copying enabled
+    shift
+  ;;
+  -g|--git-directory)
+    gitdir="$2"
+    echo cloning location set to $gitdir
+    shift
+    shift
+  ;;
   *)                                                                    # unknown option
     POSITIONAL+=("$1")                                                  # save it in an array for later
     shift                                                               # past argument
@@ -75,7 +100,7 @@ fi
 
 for arg in ${POSITIONAL[@]}; do
   if [ "all" = $arg ]; then
-    arg="repos dotfiles bashrc vim vundle scripts kdb tldr tmux_install"
+    arg="repos dotfiles bashrc vim vundle scripts tmux"
   fi
 
   arglist="$arglist $arg"
@@ -89,14 +114,14 @@ for arg in $arglist; do
       echo "cloning repos"                                              # clone necessary repos
       while read line; do
         gf=$(basename $line)                                            # return *.git file
-        gn=$HOME/git/${gf%$".git"}                                      # drop .git to return directory name
+        gn=$gitdir/${gf%$".git"}                                        # drop .git to return directory name
         if [ ! -d $gn ]; then                                           # check if repo has been cloned
           echo "cloning $gf"
           mkdir -p $gn                                                  # create directory to store repo
           git clone --recurse-submodules $line $gn                      # clone repo
         fi
       done < $rootc/repos.txt                                           # file contains list of repos to clone
-    ;;
+      ;;
 
     dotfiles )
       if [ 1 -ne $archive ]; then                                       # archive dotfiles if enabled
@@ -107,20 +132,20 @@ for arg in $arglist; do
       fi
 
       echo "adding dotfiles"                                            # add dotfiles
-      cp -rsf $dfiles/. $HOME                                           # symlink dotfiles to homedir
-    ;;
+      copyFiles $dfiles/. $dotdir                                       # copy dotfiles to homedir
+      ;;
 
     bashrc )
-      if [ ! "source ~/.bash_custom" = "$(tail -n 1 ~/.bashrc)" ]; then
+      if [ ! "source $dotdir/.bash_custom" = "$(tail -n 1 ~/.bashrc)" ]; then
         echo "adding to bashrc"                                         # add settings
-        echo "source ~/.bash_custom" >> ~/.bashrc                       # ensure custom settings are picked up by bashrc
+        echo "source $dotdir/.bash_custom" >> ~/.bashrc                 # ensure custom settings are picked up by bashrc
       fi
-      if [ ! -f $HOME/.git-prompt.sh ]; then                            # check for existence of git-prompt.sh
+      if [ ! -f $dotdir/.git-prompt.sh ]; then                          # check for existence of git-prompt.sh
         echo "fetching git-prompt.sh"                                   # get git prompt script
-        wget -O $HOME/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+        wget -O $dotdir/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
       fi
 
-    ;;
+      ;;
 
     git )
       echo "input git name"                                             # set git name
@@ -132,7 +157,7 @@ for arg in $arglist; do
       read gitemail
       echo "setting email to $gitemail"
       git config --global user.email "$gitemail"
-    ;;
+      ;;
 
     vim )
       echo "adding kdb syntax highlighting from $vimsyntax"             # vim kdb syntax highlighting
@@ -141,7 +166,7 @@ for arg in $arglist; do
       else
         echo "$vimsyntax not cloned"
       fi
-    ;;
+      ;;
 
     vundle )
       echo "cloning Vundle"
@@ -152,54 +177,41 @@ for arg in $arglist; do
       else
         echo "Vundle already installed"
       fi
-    ;;
+      ;;
 
     scripts )
       echo "copying scripts"
-      mkdir -p $HOME/scripts                                            # custom scripts
-      cp -rsf $rootc/scripts/* $HOME/scripts/
-    ;;
+      mkdir -p $scriptsdir                                              # custom scripts
+      copyFiles $rootc/scripts/* $scriptsdir
+      ;;
 
     kdb )
       source $rootc/kdb_install.sh
-    ;;
+      ;;
 
     tldr )
-      if [ ! -f $HOME/local/bin/tldr ]; then                            # check if tld has been installed
-        echo "adding tldr"                                              # install tldr
-        mkdir -p $HOME/local/bin
-        curl -o $HOME/local/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
-        chmod +x $HOME/local/bin/tldr
+      if [ ! -f $localdir/bin/tldr ]; then                              # check if tld has been installed
+        echo adding tldr                                                # install tldr
+        mkdir -p $localdir/bin
+        curl -o $localdir/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
+        chmod +x $localdir/bin/tldr
       fi
-    ;;
+      ;;
 
     tmux_install )
       if [ -z `which tmux` ]; then
-        echo "installing tmux"
-        cd $HOME/git/tmux
-        ./configure --prefix $HOME/local
+        echo installing tmux
+        cd $gitdir/tmux
+        ./configure --prefix $localdir
         make
         make install
         cd -
       fi
-    ;;
-
-    libevent )
-      echo "getting libevent"
-      mkdir -p /tmp/"$USER"dep/
-      wget -O /tmp/"$USER"dep/libevent-2.0.19-stable.tar.gz https://github.com/downloads/libevent/libevent/libevent-2.0.19-stable.tar.gz
-      tar -xvzf /tmp/"$USER"dep/libevent-2.0.19-stable.tar.gz -C /tmp/"$USER"dep/
-      cd /tmp/"$USER"dep/libevent-2.0.19-stable
-      ./configure --prefix=$HOME/local
-      make
-      make install
-      cd -
-      rm -rf /tmp/"$USER"dep/
-    ;;
+      ;;
 
     * )
       echo "Invalid option: $arg"
-    ;;
+      ;;
 
   esac
 
