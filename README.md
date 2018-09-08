@@ -38,10 +38,9 @@ The following options are available:
 - [vim](#vim)
 - [vundle](#vundle)
 - [scripts](#scripts)
-- [kdb](#kdb)
-- [tldr](#tldr)
-- [tmux_install](#tmux_install)
-- [libevent](#libevent)\*
+- [kdb](#kdb)\*
+- [tldr](#tldr)\*
+- [tmux_install](#tmux_install)\*
 
 > \* Not included in all
 

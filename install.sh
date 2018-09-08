@@ -100,7 +100,7 @@ fi
 
 for arg in ${POSITIONAL[@]}; do
   if [ "all" = $arg ]; then
-    arg="repos dotfiles bashrc vim vundle scripts kdb tldr tmux_install"
+    arg="repos dotfiles bashrc vim vundle scripts tmux"
   fi
 
   arglist="$arglist $arg"
@@ -121,7 +121,7 @@ for arg in $arglist; do
           git clone --recurse-submodules $line $gn                      # clone repo
         fi
       done < $rootc/repos.txt                                           # file contains list of repos to clone
-    ;;
+      ;;
 
     dotfiles )
       if [ 1 -ne $archive ]; then                                       # archive dotfiles if enabled
@@ -133,7 +133,7 @@ for arg in $arglist; do
 
       echo "adding dotfiles"                                            # add dotfiles
       copyFiles $dfiles/. $dotdir                                       # copy dotfiles to homedir
-    ;;
+      ;;
 
     bashrc )
       if [ ! "source $dotdir/.bash_custom" = "$(tail -n 1 ~/.bashrc)" ]; then
@@ -145,7 +145,7 @@ for arg in $arglist; do
         wget -O $dotdir/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
       fi
 
-    ;;
+      ;;
 
     git )
       echo "input git name"                                             # set git name
@@ -157,7 +157,7 @@ for arg in $arglist; do
       read gitemail
       echo "setting email to $gitemail"
       git config --global user.email "$gitemail"
-    ;;
+      ;;
 
     vim )
       echo "adding kdb syntax highlighting from $vimsyntax"             # vim kdb syntax highlighting
@@ -166,7 +166,7 @@ for arg in $arglist; do
       else
         echo "$vimsyntax not cloned"
       fi
-    ;;
+      ;;
 
     vundle )
       echo "cloning Vundle"
@@ -177,17 +177,17 @@ for arg in $arglist; do
       else
         echo "Vundle already installed"
       fi
-    ;;
+      ;;
 
     scripts )
       echo "copying scripts"
       mkdir -p $scriptsdir                                              # custom scripts
       copyFiles $rootc/scripts/* $scriptsdir
-    ;;
+      ;;
 
     kdb )
       source $rootc/kdb_install.sh
-    ;;
+      ;;
 
     tldr )
       if [ ! -f $localdir/bin/tldr ]; then                              # check if tld has been installed
@@ -196,7 +196,7 @@ for arg in $arglist; do
         curl -o $localdir/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
         chmod +x $localdir/bin/tldr
       fi
-    ;;
+      ;;
 
     tmux_install )
       if [ -z `which tmux` ]; then
@@ -207,25 +207,11 @@ for arg in $arglist; do
         make install
         cd -
       fi
-    ;;
-
-    libevent )
-      echo "getting libevent"
-      tmpdir=/tmp/${USER}dep/
-      mkdir -p $tmpdir
-      wget -O $tmpdir/libevent-2.0.19-stable.tar.gz https://github.com/downloads/libevent/libevent/libevent-2.0.19-stable.tar.gz
-      tar -xvzf $tmpdir/libevent-2.0.19-stable.tar.gz -C $tmpdir
-      cd $tmpdir/libevent-2.0.19-stable
-      ./configure --prefix=$localdir
-      make
-      make install
-      cd -
-      rm -rf $tmpdir
-    ;;
+      ;;
 
     * )
       echo "Invalid option: $arg"
-    ;;
+      ;;
 
   esac
 
