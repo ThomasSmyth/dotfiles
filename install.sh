@@ -118,7 +118,7 @@ for arg in $arglist; do
         if [ ! -d $gn ]; then                                           # check if repo has been cloned
           echo "cloning $gf"
           mkdir -p $gn                                                  # create directory to store repo
-          git clone $line $gn                                           # clone repo
+          git clone --recurse-submodules $line $gn                      # clone repo
         fi
       done < $rootc/repos.txt                                           # file contains list of repos to clone
     ;;
