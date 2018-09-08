@@ -1,5 +1,5 @@
 git@github.com:vibronicshark55/dotfiles.git,default
-git@github.com:vibronicshark55/myfuncs.git,
+git@bitbucket.org:ThomasSmyth/challenges.git,
 git@github.com:vibronicshark55/segment-comparison.git,
 git@github.com:vibronicshark55/yaq-vim.git,default
 https://github.com/tmux/tmux.git,
