@@ -41,6 +41,7 @@ The following options are available:
 - [kdb](#kdb)\*
 - [tldr](#tldr)\*
 - [tmux_install](#tmux_install)\*
+- [ssh_config](#ssh_config)\*
 
 > ^ All repos can be installed using `-r` flag
 
@@ -119,3 +120,7 @@ Retrieves [tldr](https://github.com/raylee/tldr) from
 
 Will install [tmux](https://github.com/tmux/tmux) if it does not already
 exist on the host.
+
+### ssh_config
+
+Add ssh config file that specifies keys to use with git repo hosting services.
