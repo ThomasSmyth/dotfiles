@@ -2,9 +2,11 @@
 
 # this script should only be used on first install
 
+ghrepo=git@github.com:vibronicshark55/dotfiles.git
+
 hn=$(echo $(basename $HOSTNAME) | cut -d"." -f1)
 
-if [ ! -f $HOME/.ssh/"$hn"_key ]; then                                  # check SSH exists for current host, creating of necessary
+if [ ! -f $HOME/.ssh/${hn}_key ]; then                                  # check SSH exists for current host, creating of necessary
   echo "Creating SSH keys, enter email used with Github"
   read gitemail
   mkdir -p $HOME/.ssh                                                   # create ssh dir
@@ -16,5 +18,5 @@ if [ ! -f $HOME/.ssh/"$hn"_key ]; then                                  # check 
 fi
 
 if [ ! -d $HOME/git/dotfiles ]; then
-  git clone git@github.com:vibronicshark55/dotfiles.git $HOME/git/dotfiles # clone dotfiles repo if it does not exist
+  git clone $ghrepo $HOME/git/dotfiles                                  # clone dotfiles repo if it does not exist
 fi

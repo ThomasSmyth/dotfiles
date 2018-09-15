@@ -16,10 +16,13 @@ gitdir=$HOME/git                                                        # locati
 localdir=$HOME/local                                                    # binaries
 scriptsdir=$HOME/scripts                                                # local scripts
 vimsyntax=yaq-vim
+sshconf=$HOME/.ssh/config
+
 
 # dotfile locations
 rootc=$PWD/$(dirname "${BASH_SOURCE}")                                  # full path dotfiles repo
 dfiles=$rootc/dotfiles                                                  # full path to dotfiles sub directory
+templates=$rootc/templates                                              # dotfile templates
 
 #############
 # functions #
@@ -37,6 +40,13 @@ copyFiles () {
 recurseFiles () {                                                       # return files form all sub directories
   dir=$(echo "$1" | sed 's|\/*$||g')                                    # trim trailing forward slash
   find $dir -type f | sed "s|^$dir\/||g"                                # return file paths of dotfiles
+ }
+
+fillTemplate () {
+  rm $2
+  while read line; do
+    eval echo "$line" >> $2
+  done < $1
  }
 
 archiveFile() {                                                         # archive file if it exists
@@ -217,6 +227,15 @@ for arg in $arglist; do
         make
         make install
         cd -
+      fi
+      ;;
+
+    ssh_config)
+      if [ -f $sshconf ]; then                                          # create ssh config if it does not already exist
+        echo "$sshconf exists"
+      else
+        echo "creating $sshconf"
+        fillTemplate $templates/sshconfig.txt $sshconf
       fi
       ;;
 
