@@ -1,0 +1,5 @@
+Host github.com
+IdentityFile /home/deploy/.ssh/${hn}_key
+
+Host bitbucket.org
+IdentityFile /home/deploy/.ssh/${hn}_key
