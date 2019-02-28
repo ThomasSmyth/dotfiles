@@ -5,6 +5,7 @@
     st=status
     # Save a repo as a tarball
     export = archive -o latest.tar.gz -9 --prefix=latest/
+    clone-sub = clone --recurse-submodules
 [color]
     ui = true
 [core]
