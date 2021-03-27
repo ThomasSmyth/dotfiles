@@ -2,7 +2,7 @@
 
 # this script should only be used on first install
 
-ghrepo=git@github.com:vibronicshark55/dotfiles.git
+ghrepo=git@github.com:thomassmyth/dotfiles.git
 
 hn=$(echo $(basename $HOSTNAME) | cut -d"." -f1)
 

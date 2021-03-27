@@ -29,7 +29,7 @@ Remote URLs must be updated after the Host configs are set using
 `git remote set-url`. For this repo the new URL may look like:
 
 ```bash
-git remote set-url gh-personal:vibronicshark55/dotfiles.git
+git remote set-url gh-personal:thomassmyth/dotfiles.git
 ```
 It may also be required to add the keys to the `ssh-agent`. To automate the
 process the following bash function can be added.

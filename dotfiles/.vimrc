@@ -151,7 +151,7 @@ nnoremap <M-m> :call SpaceToComment(' ')<CR>
 """""""""""""""""
 
 " auto remove trailing whitespace
-autocmd BufRead,BufWrite * call StripTrailingWhitespace()
+"autocmd BufRead,BufWrite * call StripTrailingWhitespace()
 
 " disable automatic comment insertion
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
