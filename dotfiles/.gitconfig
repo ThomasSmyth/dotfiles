@@ -3,6 +3,8 @@
     gs=log --color --graph --abrev-commit --decorate --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
     s=status -s
     st=status
+    br=branch
+    co=checkout
     # Save a repo as a tarball
     export = archive -o latest.tar.gz -9 --prefix=latest/
     clone-sub = clone --recurse-submodules
