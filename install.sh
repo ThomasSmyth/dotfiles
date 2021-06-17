@@ -71,37 +71,36 @@ archiveAllFiles() {                                                     # archiv
 ########################
 
 POSITIONAL=()
-while [[ $# -gt 0 ]]
-do
-key="$1"
+while [[ $# -gt 0 ]]; do
+  key="$1"
 
-case $key in
-  -a|--archive)                                                         # if passed enable archiving
-    archive=1
-    echo archiving enabled
-    shift                                                               # past argument
-    ;;
-  -h|--hard-copy)
-    hardcopy=1
-    echo hard-copying enabled
-    shift
-    ;;
-  -g|--git-directory)
-    gitdir="$2"
-    echo cloning location set to $gitdir
-    shift
-    shift
-    ;;
-  -r|--repo-full)
-    repofull=1
-    echo repo flag passed, all repos will be cloned
-    shift
-    ;;
-  *)                                                                    # unknown option
-    POSITIONAL+=("$1")                                                  # save it in an array for later
-    shift                                                               # past argument
-  ;;
-esac
+  case $key in
+    -a|--archive)                                                         # if passed enable archiving
+      archive=1
+      echo archiving enabled
+      shift                                                               # past argument
+      ;;
+    -h|--hard-copy)
+      hardcopy=1
+      echo hard-copying enabled
+      shift
+      ;;
+    -g|--git-directory)
+      gitdir="$2"
+      echo cloning location set to $gitdir
+      shift
+      shift
+      ;;
+    -r|--repo-full)
+      repofull=1
+      echo repo flag passed, all repos will be cloned
+      shift
+      ;;
+    *)                                                                    # unknown option
+      POSITIONAL+=("$1")                                                  # save it in an array for later
+      shift                                                               # past argument
+      ;;
+  esac
 done
 
 ################
