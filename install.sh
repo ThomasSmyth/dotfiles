@@ -15,7 +15,7 @@ hardcopy=0                                                              # hard c
 gitdir=$HOME/git                                                        # location of cloned repos
 localdir=$HOME/local                                                    # binaries
 scriptsdir=$HOME/scripts                                                # local scripts
-vimsyntax=yaq-vim
+vimsyntax="yaq-vim"
 sshconf=$HOME/.ssh/config
 
 
@@ -182,7 +182,9 @@ for arg in $arglist; do
     vim)
       echo "adding kdb syntax highlighting from $vimsyntax"             # vim kdb syntax highlighting
       if [ -d $HOME/git/$vimsyntax ]; then
-        cp -rsf $HOME/git/${vimsyntax}/.vim/* $HOME/.vim
+        cp -rsf $HOME/git/${vimsyntax}/filetype.vim $HOME/.vim
+        cp -rsf $HOME/git/${vimsyntax}/syntax $HOME/.vim
+        cp -rsf $HOME/git/${vimsyntax}/indent $HOME/.vim
       else
         echo "$vimsyntax not cloned"
       fi
